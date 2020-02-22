@@ -1,0 +1,19 @@
+.icon_search{
+    background-color: #333333;;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+     width: 9%;
+    font-size: 24px;
+    margin-top: 10px;
+
+    /*padding-top: 7px;*/
+}
+
+.orange{
+    color: darkorange;
+}
+
+.white{
+    color: white;
+}

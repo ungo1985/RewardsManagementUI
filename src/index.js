@@ -1,12 +1,26 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import App from './components/app/App';
+import registerServiceWorker from './registerServiceWorker';
+import Profile from './models/Profile'; 
+import {BROWSER} from './models/Constants';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+function initApp () {
+    ReactDOM.render(<App />, document.getElementById('root'));
+    registerServiceWorker();
+};
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function bootStrapApp (env) {
+    console.log("environment ", env);
+    if (env === BROWSER) {
+        initApp();
+    } else {
+        document.addEventListener("deviceready", () => {
+            initApp();
+        }, false);
+    }
+}
+
+Profile.setEnvironment(bootStrapApp);
