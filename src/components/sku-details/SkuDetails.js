@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SkuDetails.css'
 import { formatSkuNumber } from '../Util/util.js';
-import ItemContext from '../contexts/ItemContext';
+import Context from '../contexts/Context';
 import { CLEARANCE, PENNY_SKU, ZERO_RETAIL, 
     THREE_DIGITS_OR_LESS, ENTER_QTY_BEFORE_PRINT, TOTAL_UNIT_EXCEEDED,
     TOTAL_PRICE_EXCEEDED_1, TOTAL_PRICE_EXCEEDED_2, 
@@ -430,5 +430,5 @@ class SkuDetails extends Component {
 
    
 }
-SkuDetails.contextType = ItemContext;
+SkuDetails.contextType = Context;
 export default SkuDetails;

@@ -4,14 +4,11 @@ import ReactGA from 'react-ga';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import Inquiry from '../../components/inquiry-page/Inquiry'
 import HomePage from '../home-page/HomePage'
-import ItemContext from '../../components/contexts/ItemContext'
-import PrinterContext from '../../components/contexts/PrinterContext'
+import Context from '../../components/contexts/Context'
 import PrinterPage from '../printer-page/PrinterPage';
 import Profile from "../../models/Profile";
 import { getToken, manageRecentSearchList } from '../Util/util';
 import { APP_VERSION_FILE} from '../../models/Constants';
-import { getThermalPrinters } from '../Util/print-util';
-import { enableBlueTooth } from '../Util/bluetooth-util';
 
 class App extends Component {
     constructor(props) {
@@ -19,31 +16,18 @@ class App extends Component {
 
         this.state = {
             searchedInput: '',
-            skuNbr: '',
+            customerId: '',
+            customerInfo: null,
+            purchaseInfo: null,
             savedRecentSearches: [],
             showSearchModal: false,
-            selectedPrinter: [],
-            thermalPrinterList: [],
-            bluetoothPrinterList: [],
             isLoading: true,
             itemQuantity: '',
-            errorBox: null,
-            skuBasicInfoBySkuStore: null,
-            totalUnits: 0,
-            isCarton: false,
-            cartonCount: 0
+            errorBox: null
         }
 
         this.readTextFile(APP_VERSION_FILE);
         this.readIntentFromDevice();
-        this.retrievePrinters();
-        this.initBlueTooth();
-    }
-    
-    retrievePrinters(){
-        setTimeout(() => {
-            getThermalPrinters(this.setThermalPrinters);
-        }, 2000);
     }
 
     readIntentFromDevice() {
@@ -53,12 +37,6 @@ class App extends Component {
     deviceCallBackFn = (e) => {
         Profile.setTokenData(e.userData.thdSsoToken);
         Profile.userId(e.userData.associateUserID);
-    }
-
-    initBlueTooth() {
-        enableBlueTooth((result) => {
-            console.log("APP: BT enable ", result);
-        });
     }
 
     readTextFile = (file) => {
@@ -96,6 +74,18 @@ class App extends Component {
         });
     }
 
+    setCustomerInfo = (value) => {
+        this.setState({
+        	customerInfo: value
+        });
+    }
+
+    setPurchaseInfo = (value) => {
+        this.setState({
+        	purchaseInfo: value
+        });
+    }
+
 
     setSavedRecentSearches = (value) => {
 
@@ -106,112 +96,32 @@ class App extends Component {
         }, ()=> {
         });
     }
-    
-    setSelectedPrinter = (value) => {
-             
-        this.setState({
-            selectedPrinter: value,
-            errorBox:null
-        });
-    }
-
-    setSkuNbr = (value) => {
-             
-        this.setState({
-        	skuNbr: value
-        });
-    }
-
-    setIsCarton = (value) => {
-             
-        this.setState({
-        	isCarton: value
-        });
-    }
-
-    setSkuBasicInfoBySkuStore = (value) => {
-             
-        this.setState({
-        	skuBasicInfoBySkuStore: value
-        });
-    }
-
-    setThermalPrinters = (formattedPrinterList) => {
-        this.setState({
-            thermalPrinterList: formattedPrinterList
-        });
-    }
-
-    setBluetoothPrinters = (formattedPrinterList) => {
-        this.setState({
-            bluetoothPrinterList: formattedPrinterList
-        });
-    }
-
-    setItemQuantity = (value) => {
-         this.setState({
-        	itemQuantity: value
-        });
-    }
-
-    setTotalUnits = (value) => {
-             
-        this.setState({
-        	totalUnits: value
-        });
-    }
-
-    setCartonCount = (value) => {
-             
-        this.setState({
-        	cartonCount: value
-        });
-    }
 
 
     render = () => (
 
-        <ItemContext.Provider value={{
+        <Context.Provider value={{
             searchedInput: this.state.searchedInput,
             setSearchedInput: this.setSearchedInput,
-            skuNbr: this.state.skuNbr,
-            setSkuNbr: this.setSkuNbr,
             savedRecentSearches: this.state.savedRecentSearches,
             setSavedRecentSearches: this.setSavedRecentSearches,
-            itemQuantity: this.state.itemQuantity,
-            setItemQuantity: this.setItemQuantity,
-            skuBasicInfoBySkuStore: this.state.skuBasicInfoBySkuStore,
-            setSkuBasicInfoBySkuStore: this.setSkuBasicInfoBySkuStore,
             setErrorBox : this.setErrorBox,
             errorBox: this.state.errorBox,
-            totalUnits: this.state.totalUnits,
-            setTotalUnits: this.setTotalUnits,
-            selectedPrinter: this.state.selectedPrinter,
-            setSelectedPrinter: this.setSelectedPrinter,
-            isCarton: this.state.isCarton,
-            setIsCarton: this.setIsCarton,
-            cartonCount: this.state.cartonCount,
-            setCartonCount: this.setCartonCount
+            customerInfo: this.state.customerInfo,
+            setCustomerInfo: this.setCustomerInfo,
+            purchaseInfo: this.state.purchaseInfo,
+            setPurchaseInfo: this.setPurchaseInfo
         }}>
-            <PrinterContext.Provider value={{
-                selectedPrinter: this.state.selectedPrinter,
-                setSelectedPrinter: this.setSelectedPrinter,
-                thermalPrinterList: this.state.thermalPrinterList,
-                setThermalPrinters: this.setThermalPrinters,
-                bluetoothPrinterList: this.state.bluetoothPrinterList,
-                setBluetoothPrinters: this.setBluetoothPrinters
-            }}>
                 <div className='application-container'>
                     <Router>
                             <Switch>
                                 <Route exact path='/' render={props => <HomePage {...props}/>} />
-                                <Route path='/product' render={props => <Inquiry {...props}/>} />
+                                <Route path='/inquiry' render={props => <Inquiry {...props}/>} />
                                 <Route path='/printers' render={props => <PrinterPage {...props}/>} />	
                             </Switch>
                     </Router>
                 </div>
-            </PrinterContext.Provider>
-        </ItemContext.Provider>
+        </Context.Provider>
     )
 
 

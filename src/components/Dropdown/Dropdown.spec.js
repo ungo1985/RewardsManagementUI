@@ -56,7 +56,7 @@ describe('Testing Dropdown component', () => {
             data: [{
                 printerUxQueueName:'rfprs001',
                 printerDescription:'TECLBL1'}],
-            history : {location: { pathname: "/product" }},
+            history : {location: { pathname: "/inquiry" }},
             getInput : jest.fn()
         }
         let expectedPrinterId = [{

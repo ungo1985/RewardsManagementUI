@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./PrintComponent.css";
+import "./CrudComponent.css";
 
 import { validateSelectedPrinter } from '../Util/util';
 import { pairWirelessDevice, printToBtDevice } from '../Util/bluetooth-util';
@@ -12,7 +12,7 @@ import {
     ADD_CUSTOMER
 } from '../../models/Constants';
 
-class PrintComponent extends Component {
+class CrudComponent extends Component {
 
     // eslint-disable-next-line no-useless-constructor
     constructor(props) {
@@ -27,9 +27,9 @@ class PrintComponent extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            fromPage:this.props.location.pathname
-        });
+        //this.setState({
+        //    fromPage:this.props.location.pathname
+        //});
     }
 
     isItemValid(itemInfo, skuNbr) {
@@ -49,7 +49,7 @@ class PrintComponent extends Component {
         // Format PrinterInfo Object
         let printerObj = validateSelectedPrinter(printerInfo);
 
-        if (this.isItemValid(this.props.itemContext, this.props.skuNbr)
+        if (this.isItemValid(this.props.Context, this.props.skuNbr)
             && printerInfo && printerInfo.length > 0) {
            
             // Loading Image while calling Print Service
@@ -57,13 +57,13 @@ class PrintComponent extends Component {
             
             let labelQty = 0;
             //Assigning the quantity for carton and simple sku
-            if(this.props.itemContext.isCarton){
-                labelQty = this.props.itemContext.totalUnits
+            if(this.props.Context.isCarton){
+                labelQty = this.props.Context.totalUnits
             } else {
-                labelQty = this.props.itemContext.itemQuantity;
+                labelQty = this.props.Context.itemQuantity;
             }
 
-            postPrint(this.props.skuNbr, this.props.itemContext.searchedInput, labelQty, printerObj)
+            postPrint(this.props.skuNbr, this.props.Context.searchedInput, labelQty, printerObj)
                 .then(response => {
                     if (printerObj.isThermal) {
                         // Thermal Response Handler
@@ -201,7 +201,7 @@ class PrintComponent extends Component {
         return (
 
             <div className="printContainer">
-                {isPrinterSelected && this.props.history.location.pathname === "/product" &&
+                {isPrinterSelected && this.props.history.location.pathname === "/inquiry" &&
                     <div>
                         <div className="printerInfo">
                             <span className={"printerLabel " + (printerDescLimitExceeds ? 'fontReduced' : '')}>{PRINTER_NAME} {printerSelectedDesc}</span>
@@ -240,4 +240,4 @@ class PrintComponent extends Component {
 }
 
 
-export default PrintComponent;
+export default CrudComponent;

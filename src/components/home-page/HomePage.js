@@ -5,9 +5,8 @@ import scanTypesImage from './../../images/scan_types_320x134.png'
 import Header from './../header/Header'
 import SearchModal from "./../search-modal/SearchModal"
 import Scan from './../scan/Scan';
-import ItemContext from '../../components/contexts/ItemContext'
-import PrinterContext from '../contexts/PrinterContext';
-import PrintComponent from '../print-component/PrintComponent';
+import Context from '../../components/contexts/Context'
+import CrudComponent from '../crud-component/CrudComponent';
 import { HOME_PAGE_LABEL} from '../../models/Constants';
 import {SCAN_SEARCH} from '../../models/Constants';
 
@@ -18,8 +17,6 @@ class HomePage extends Component{
         this.state = {
             value: '',
             showSearchModal: false,
-            bluetoothPrinterList: [],
-            selectedPrinter: [],
             fromPage: ''
         }
         this.renderSearchModal = this.renderSearchModal.bind(this);
@@ -48,7 +45,7 @@ class HomePage extends Component{
         this.context.setSearchedInput(scannedInput);
         this.props.history.push(
             { 
-                pathname: './product', 
+                pathname: './inquiry', 
                 state: 
                 { 
                     searchInput: scannedInput,
@@ -75,10 +72,10 @@ class HomePage extends Component{
 
     render(){
         return(
-            <ItemContext.Consumer>
+            <Context.Consumer>
             {({ searchedInput }) => (
-                <PrinterContext.Consumer>
-                {(printerContext) => (
+                <Context.Consumer>
+                {(context) => (
                     <div className="homePage">
                         <Header headerTextClassName="titleTxt" id="titleTxt">Rewards Management System</Header>
                         <div id="scan-image" className="scan-image">
@@ -88,15 +85,15 @@ class HomePage extends Component{
                         <div className={"label " + (this.state.showSearchModal ? 'hide': '')} id="label">{HOME_PAGE_LABEL}</div>
                         <div className={"search-text-box "+(this.state.showSearchModal ? 'hide': '')} onClick={() => {this.setStateForModal(true)}}></div>
                         {this.renderSearchModal(this.state.showSearchModal)}
-                        <PrintComponent {...this.props} selectedPrinter={printerContext.selectedPrinter} ></PrintComponent>
+                        <CrudComponent></CrudComponent>
                     </div>
                 )}
-                </PrinterContext.Consumer>
+                </Context.Consumer>
             )}
-	        </ItemContext.Consumer>
+	        </Context.Consumer>
         );
     }
 }
 
-  HomePage.contextType = ItemContext;
+  HomePage.contextType = Context;
   export default HomePage;

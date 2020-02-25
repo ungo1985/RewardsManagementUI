@@ -5,7 +5,7 @@ import {
     BROWSER, DATAMAX_PREFIX, ZEBRA, DATAMAX, CARTON_UPC,
     CASE, NULL, 
     BLUETOOTH_PRINTER_TYPE, 
-    THERMAL_PRINTER_TYPE
+    THERMAL_PRINTER_TYPE, VIP_ID
 }
     from '../../models/Constants';
 import Profile from '../../models/Profile';
@@ -18,6 +18,15 @@ export function validateForNumericInput (input) {
     if(!(numericRegEx.test(input)) && Number(input) > 0) {
         isValid = true;
     }
+    return isValid;
+}
+
+
+export function validateForAlphaInput (input) {
+    let isValid = false;
+    if(input == null || input === ""){return isValid;}
+    let alphaRegEx  = /[^a-zA-Z]/i;
+    isValid = !(alphaRegEx.test(input));
     return isValid;
 }
 
@@ -36,29 +45,20 @@ export function validateForAlphaNumericInput (input) {
  * @param String input
  * @returns String
  * @example 
- *  ///returns SKU
- *  this.validateUserInput(123456);
+ *  ///returns VIP_ID
+ *  this.validateUserInput(EXA6777);
  *  
  *  @example
- *  ///returns UPC
+ *  ///returns UNKNOWN_INPUT
  *  this.validateUserInput(123456789121);
  */
 export function validateUserInput(input) {
-    if(validateForNumericInput(input)){
-        if (input.length === 6 || input.length === 10) {
-            return SKU;
-        }
+    if(validateForAlphaNumericInput(input)){
+        if (input.length === 7) {
 
-        if (input.length === 8 || input.length === 12 || input.length === 13) {
-            return UPC;
-        }
-
-        if (input.length === 9 ) {
-            return OMS_ID;
-        }
-
-        if (input.length === 14 ) {
-            return CARTON_UPC;
+            var letters = input.substring(0,2);
+            var numbers = input.substring(3,6);
+            if(validateForAlphaInput(letters) && validateForNumericInput(numbers)){return VIP_ID;}
         }
         return UNKNOWN_INPUT;
     } else {

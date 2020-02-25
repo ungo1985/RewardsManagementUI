@@ -95,7 +95,7 @@ it('Make sure <PrinterPage/> component invokes handlePrinterSelectionInput metho
 it('Make sure <PrinterPage/> component invokes handlePrinterChange method successfully', () => {
 
     let props = {
-        location: { pathname: "/product" },
+        location: { pathname: "/inquiry" },
     };
 
     let component = mount(<PrinterContext.Provider value={{setSelectedPrinter}}>

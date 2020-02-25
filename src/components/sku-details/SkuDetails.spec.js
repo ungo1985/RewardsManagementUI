@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow ,mount } from 'enzyme'
 import SkuDetails from './SkuDetails'
-import ItemContext from '../contexts/ItemContext';
+import Context from '../contexts/Context';
 
 
 
@@ -77,10 +77,10 @@ describe('SkuDetails Component with Carton Count props', () => {
     const itemQuantity = 1;
     const totalUnits = 100;
     const cartonCount = 100;
-    var component1 = mount(<ItemContext.Provider value={{ itemQuantity,totalUnits,cartonCount}}>
+    var component1 = mount(<Context.Provider value={{ itemQuantity,totalUnits,cartonCount}}>
     <SkuDetails {...props} />
     
-    </ItemContext.Provider>);
+    </Context.Provider>);
     
     it('Makes sure the <SkuDetails/> renders component', () => {
         expect(component1).toMatchSnapshot();
@@ -132,10 +132,10 @@ describe('SkuDetails Component with Carton Count props and price is empty', () =
     const itemQuantity = 1;
     const totalUnits = 100;
     const cartonCount = 100
-    var component2 = mount(<ItemContext.Provider value={{ itemQuantity,totalUnits , cartonCount}}>
+    var component2 = mount(<Context.Provider value={{ itemQuantity,totalUnits , cartonCount}}>
     <SkuDetails {...props} />
     
-    </ItemContext.Provider>);
+    </Context.Provider>);
     
     it('Makes sure the <SkuDetails/> renders component', () => {
         expect(component2).toMatchSnapshot();
@@ -188,11 +188,11 @@ describe('SkuDetails Component with Carton Count props and sku desc is empty', (
     const itemQuantity = 1;
     const totalUnits = 100;
     const cartonCount = 100
-    var component3 = mount(<ItemContext.Provider value={{ itemQuantity , totalUnits , cartonCount}}>
+    var component3 = mount(<Context.Provider value={{ itemQuantity , totalUnits , cartonCount}}>
         
             <SkuDetails {...props} />
       
-    </ItemContext.Provider>);
+    </Context.Provider>);
     // component3.instance().setState({
     //     isLoading: false,
     //     showErrorBox: false,
@@ -256,11 +256,11 @@ describe('SkuDetails Component with Carton Count props and sku status is empty',
     const itemQuantity = 1;
     const totalUnits = 100;
     const cartonCount = 100;
-    var component4 = mount(<ItemContext.Provider value={{ itemQuantity , totalUnits , cartonCount}}>
+    var component4 = mount(<Context.Provider value={{ itemQuantity , totalUnits , cartonCount}}>
         
             <SkuDetails {...props} />
       
-    </ItemContext.Provider>);
+    </Context.Provider>);
 
     it('Makes sure the <SkuDetails/> renders component', () => {
         expect(component4).toMatchSnapshot();
@@ -314,11 +314,11 @@ describe('SkuDetails Component with Carton Count props and simulate inputQty', (
     const itemQuantity = 50;
     const totalUnits = 100;
     const cartonCount = 200;
-    var component5 = mount(<ItemContext.Provider value={{ itemQuantity , totalUnits , cartonCount}}>
+    var component5 = mount(<Context.Provider value={{ itemQuantity , totalUnits , cartonCount}}>
         
             <SkuDetails {...props} />
       
-    </ItemContext.Provider>);
+    </Context.Provider>);
     it('Makes sure the <SkuDetails/> renders component', () => {
         expect(component5).toMatchSnapshot();
     })
@@ -398,10 +398,10 @@ describe('SkuDetails Component with default cartonQty and Carton Count props', (
 
     const itemQuantity = 50;
     const totalUnits = 100;
-    var component6 = mount(<ItemContext.Provider value={{  setItemQuantity, setTotalUnits , cartonCount }}>
+    var component6 = mount(<Context.Provider value={{  setItemQuantity, setTotalUnits , cartonCount }}>
     <SkuDetails {...props} />
   
-    </ItemContext.Provider>);
+    </Context.Provider>);
 
 
     it('Makes sure the <SkuDetails/> renders component', () => {

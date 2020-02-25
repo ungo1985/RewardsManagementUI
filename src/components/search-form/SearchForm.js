@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './SearchForm.css';
 import backArrow from '../../images/backArrow.png';
-import ItemContext from '../../components/contexts/ItemContext';
+import Context from '../../components/contexts/Context';
 import {MANUAL_SEARCH} from '../../models/Constants';
-import { validateCarton } from '../Util/util';
+import { validateCarton, validateForAlphaNumericInput } from '../Util/util';
 
 class SearchForm extends Component{
 
@@ -103,7 +103,7 @@ class SearchForm extends Component{
         
 		let value = e.target.value;
         this.setStateValue(value, false, false, 'button_disable');
-        if(this.validLength(value)){
+        if(validateForAlphaNumericInput(value)){
             this.context.setSearchedInput(value);
         	this.setState({buttonCSS: 'button_enable'});
         }
@@ -124,7 +124,7 @@ class SearchForm extends Component{
 
             this.props.setStateForModal(false);
             if(history.location.pathname === '/'){
-                history.push({pathname: './product', state: {searchInput: value}});
+                history.push({pathname: './inquiry', state: {searchInput: value}});
             } else {
                 this.props.fetchSkuDetails(value, validateCarton(value))
             }
@@ -148,7 +148,7 @@ class SearchForm extends Component{
 
             this.props.setStateForModal(false);
             if(history.location.pathname === '/'){
-                history.push({pathname: './product', state: {searchInput: value}});
+                history.push({pathname: './inquiry', state: {searchInput: value}});
             }
             else{
                 this.props.fetchSkuDetails(value, validateCarton(value))
@@ -159,13 +159,13 @@ class SearchForm extends Component{
 
     render(){
         return(
-	        <ItemContext.Consumer>
+	        <Context.Consumer>
 	        {({ setSearchedInput }) => (
 		        <div>
 		            <div className="searchboxDiv">
 		                <img src={backArrow} alt="" className="back-arrow" onClick={this.onBackFxn}/>
 		                <div className="searchTextboxDiv">
-		                    <input id="searchTextbox" type="number" className="searchTextbox"
+		                    <input id="searchTextbox" type="text" className="searchTextbox"
 		                        onChange={this.handleValueChange}  onKeyDown={this.enterInput}/>
 		                </div>
                         <button id="button_search" className={this.state.buttonCSS + " button_search"} 
@@ -174,9 +174,9 @@ class SearchForm extends Component{
 		            </div>
 		        </div>
 	        )}
-	        </ItemContext.Consumer>
+	        </Context.Consumer>
         )
     }
 }
-SearchForm.contextType = ItemContext
+SearchForm.contextType = Context
 export default SearchForm;

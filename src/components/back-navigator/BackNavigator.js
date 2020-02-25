@@ -13,7 +13,7 @@ class BackNavigator extends Component{
 
     onBackClick() {
         console.log("back clicked!");
-        this.props.setItemQuantity("");
+        //this.props.setItemQuantity("");
         this.props.history.replace({pathname: './'});
         
     };

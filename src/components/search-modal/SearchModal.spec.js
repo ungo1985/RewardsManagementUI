@@ -1,7 +1,7 @@
 import {shallow, mount} from 'enzyme';
 import React from 'react';
 import SearchModal from './SearchModal';
-import ItemContext from '../contexts/ItemContext';
+import Context from '../contexts/Context';
 import { RECENT_SEARCHES } from '../../models/Constants';
 
 let component;
@@ -18,9 +18,9 @@ describe('Testing SearchModal component', () => {
 
     it('Make sure <SearchModal/> component renders fine', () => {
 
-        component = mount(<ItemContext.Provider value={{ setSearchedInput }}>
+        component = mount(<Context.Provider value={{ setSearchedInput }}>
             <SearchModal fetchSkuDetails={propsMock.fetchSkuDetails} setStateForModal={propsMock.setStateForModal}></SearchModal>
-        </ItemContext.Provider>)
+        </Context.Provider>)
         expect(component.find('.searchModal').exists()).toBeTruthy();
         //expect(component.find('.label').exists()).toBeTruthy();
         // expect(component.find('.label').text()).toBe(RECENT_SEARCHES);

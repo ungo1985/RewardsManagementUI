@@ -2,7 +2,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import HomePage from './HomePage'
-import ItemContext from '../contexts/ItemContext';
+import Context from '../contexts/Context';
 import PrinterContext from '../contexts/PrinterContext';
 import { HOME_PAGE_LABEL, SCAN_OR_SELECT_PRINT } from '../../models/Constants';
 
@@ -22,11 +22,11 @@ describe('Testing HomePage', () => {
         let props = {
             location: { pathname: "/" },
         };
-        component = mount(<ItemContext.Provider value={{ searchedInput }}>
+        component = mount(<Context.Provider value={{ searchedInput }}>
                             <PrinterContext.Provider value={{ selectedPrinter }}>
                                 <HomePage {...props}  history={historyMock}></HomePage>
                             </PrinterContext.Provider>
-                        </ItemContext.Provider>)
+                        </Context.Provider>)
     })
 
     it('Makes sure the <HomePage/> renders without any issue', () => {
@@ -87,15 +87,15 @@ describe('Testing HomePage', () => {
 
     it('<HomePage/> calls the sku scan function', () => {
 
-        let expectedPath = { pathname: './product', state: { skuNbr: '161640' } };
+        let expectedPath = { pathname: './inquiry', state: { skuNbr: '161640' } };
         let props = {
             location: { pathname: "/" },
         };
-        component = mount(<ItemContext.Provider value={{ searchedInput, setSearchedInput }}>
+        component = mount(<Context.Provider value={{ searchedInput, setSearchedInput }}>
             <PrinterContext.Provider value={{ selectedPrinter }}>
                 <HomePage {...props} history={historyMock} />
             </PrinterContext.Provider>
-        </ItemContext.Provider>)
+        </Context.Provider>)
 
         // const spySetSearchedInput = jest.spyOn(
         //                             component.instance().context,

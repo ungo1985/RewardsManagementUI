@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import Inquiry from './Inquiry'
-import ItemContext from '../contexts/ItemContext';
+import Context from '../contexts/Context';
 import PrinterContext from '../contexts/PrinterContext';
 
 
@@ -17,9 +17,9 @@ it('renders the Inquiry component without crashing', () => {
             search: ' ? skuNbr = 1019060'
         },
     }
-    var component = shallow(<ItemContext.Provider>
+    var component = shallow(<Context.Provider>
         <Inquiry {...props} />
-    </ItemContext.Provider>);
+    </Context.Provider>);
 
     expect(component.find('Inquiry').exists()).toBeTruthy();
 
@@ -39,11 +39,11 @@ it('Service responds with null inner objects', () => {
     const searchedInput = '161640';
     const selectedPrinter = [];
     const errorBox = { serviceDown: false, skuNotFound: true };
-    var component = mount(<ItemContext.Provider value={{ searchedInput }}>
+    var component = mount(<Context.Provider value={{ searchedInput }}>
         <PrinterContext.Provider value={{ selectedPrinter }}>
             <Inquiry {...props} />
         </PrinterContext.Provider>
-    </ItemContext.Provider>);
+    </Context.Provider>);
     component.instance().setState({
         isLoading: false,
         errorBox: errorBox
@@ -72,11 +72,11 @@ it('Service responds success', () => {
 
     const searchedInput = '161640';
     const selectedPrinter = [];
-    var component = mount(<ItemContext.Provider value={{ searchedInput }}>
+    var component = mount(<Context.Provider value={{ searchedInput }}>
         <PrinterContext.Provider value={{ selectedPrinter }}>
             <Inquiry {...props1} />
         </PrinterContext.Provider>
-    </ItemContext.Provider>);
+    </Context.Provider>);
     component.instance().setState({
         isLoading: false,
         showErrorBox: false,
@@ -124,11 +124,11 @@ it('Service responds success with price value null', () => {
 
     const searchedInput = '161640';
     const currentPrinter = [];
-    var component = mount(<ItemContext.Provider value={{ searchedInput }}>
+    var component = mount(<Context.Provider value={{ searchedInput }}>
         <PrinterContext.Provider value={{ currentPrinter }}>
             <Inquiry {...props1} />
         </PrinterContext.Provider>
-    </ItemContext.Provider>);
+    </Context.Provider>);
     component.instance().setState({
         isLoading: false,
         showErrorBox: false,
@@ -171,11 +171,11 @@ it('Service responds success with sku description value null', () => {
 
     const searchedInput = '161640';
     const currentPrinter = [];
-    var component = mount(<ItemContext.Provider value={{ searchedInput }}>
+    var component = mount(<Context.Provider value={{ searchedInput }}>
         <PrinterContext.Provider value={{ currentPrinter }}>
             <Inquiry {...props1} />
         </PrinterContext.Provider>
-    </ItemContext.Provider>);
+    </Context.Provider>);
     component.instance().setState({
         isLoading: false,
         showErrorBox: false,
@@ -218,11 +218,11 @@ it('Service responds success with sku status value null', () => {
 
     const searchedInput = '161640';
     const currentPrinter = [];
-    var component = mount(<ItemContext.Provider value={{ searchedInput }}>
+    var component = mount(<Context.Provider value={{ searchedInput }}>
         <PrinterContext.Provider value={{ currentPrinter }}>
             <Inquiry {...props1} />
         </PrinterContext.Provider>
-    </ItemContext.Provider>);
+    </Context.Provider>);
     component.instance().setState({
         isLoading: false,
         showErrorBox: false,
@@ -266,11 +266,11 @@ it('Service responds success with sku basic info value null', () => {
 
     const searchedInput = '161640';
     const currentPrinter = [];
-    var component = mount(<ItemContext.Provider value={{ searchedInput }}>
+    var component = mount(<Context.Provider value={{ searchedInput }}>
         <PrinterContext.Provider value={{ currentPrinter }}>
             <Inquiry {...props1} />
         </PrinterContext.Provider>
-    </ItemContext.Provider>);
+    </Context.Provider>);
     component.instance().setState({
         isLoading: false,
         showErrorBox: false,
@@ -308,11 +308,11 @@ it('Service responds success with sku basic info value null and showErrorBox tru
     const searchedInput = '161640';
     const currentPrinter = [];
     const errorBox = { serviceDown: false, skuNotFound: true };
-    var component = mount(<ItemContext.Provider value={{ searchedInput }}>
+    var component = mount(<Context.Provider value={{ searchedInput }}>
         <PrinterContext.Provider value={{ currentPrinter }}>
             <Inquiry {...props1} />
         </PrinterContext.Provider>
-    </ItemContext.Provider>);
+    </Context.Provider>);
     component.instance().setState({
         isLoading: false,
         err: true,

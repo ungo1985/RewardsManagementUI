@@ -2,7 +2,7 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import SearchForm from './SearchForm'
-import ItemContext from '../contexts/ItemContext';
+import Context from '../contexts/Context';
 import { log } from 'util';
 
 
@@ -29,9 +29,9 @@ describe('Testing SearchForm', () => {
 
     it('Make sure <SearchForm/> component renders fine', () => {
 
-        component = mount(<ItemContext.Provider value={{ setSearchedInput }}>
+        component = mount(<Context.Provider value={{ setSearchedInput }}>
             <SearchForm setStateForModal={propsMock.setStateForModal}></SearchForm>
-        </ItemContext.Provider>)
+        </Context.Provider>)
 
         expect(component.find('.searchboxDiv').exists()).toBeTruthy();
     })
@@ -44,11 +44,11 @@ describe('Testing SearchForm', () => {
             searchInput: '161640'
         }
 
-        component = mount(<ItemContext.Provider value={{ setSearchedInput }}>
+        component = mount(<Context.Provider value={{ setSearchedInput }}>
             <SearchForm history={historyMock} {...propsMock} setStateForModal={propsMock.setStateForModal}
                 fetchSkuDetails={propsMock.fetchSkuDetails} searchInput={propsMock.searchInput}>
             </SearchForm>
-        </ItemContext.Provider>)
+        </Context.Provider>)
        
         const mockedEvent1 = {target: {value: '161640' }}
         const mockedEvent2 = {keyCode: 13}
@@ -70,11 +70,11 @@ describe('Testing SearchForm', () => {
             searchInput: '161640'
         }
 
-        component = mount(<ItemContext.Provider value={{ setSearchedInput }}>
+        component = mount(<Context.Provider value={{ setSearchedInput }}>
             <SearchForm history={historyMock} {...propsMock} setStateForModal={propsMock.setStateForModal}
                 fetchSkuDetails={propsMock.fetchSkuDetails} searchInput={propsMock.searchInput}>
             </SearchForm>
-        </ItemContext.Provider>)
+        </Context.Provider>)
 
 
         const spySearchAfterClick = jest.spyOn(component.instance(),'searchAfterClick');

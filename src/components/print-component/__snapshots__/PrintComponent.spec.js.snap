@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Test Button component Makes sure the <PrintComponent/> will render without any issue 1`] = `ShallowWrapper {}`;

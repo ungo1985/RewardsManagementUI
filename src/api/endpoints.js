@@ -9,7 +9,42 @@ import 'whatwg-fetch';
 //whatwg-fetch is required for FETCH api in devices
 
 import { LABEL, INV_PREP_LABEL_STYLE, DEFAULT_PRINT_QTY, 
-    THERMAL_TECH_PRINTER, THERMAL_ZEBRA_PRINTER, APP_NAME } from '../models/Constants';
+    THERMAL_TECH_PRINTER, THERMAL_ZEBRA_PRINTER, APP_NAME, REWARDS_MANAGEMENT_DOMAIN } from '../models/Constants';
+
+
+/* This function is used to make the call to RewardsManagementService to obtain customer and purchase info
+ * @method  fetchCustomerAndPurchaseInfo *
+ * @returns  {response object}*/
+export async function fetchCustomerAndPurchaseInfo(vipId) {
+    console.time('fetchCustomerAndPurchaseInfo');
+    const endpoint = '/rws/getCustomerAndPurchaseInfo?vipId=';
+    const domain = REWARDS_MANAGEMENT_DOMAIN;
+
+    // Building URL
+    var url = domain + endpoint + vipId;
+    
+    const response = await fetch(url, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .catch(function (error) {
+            console.log("ERROR in RewardsManagementService: " + error);
+        })
+
+    try{
+        const json = await response.json();
+        console.timeEnd('fetchCustomerAndPurchaseInfo');
+        return json;
+    }
+    catch(error){
+        console.log("ERROR in fetchCustomerAndPurchaseInfo method: " + error);
+        let errorJson = {customerId:vipId, customerInfo:{ customerId: vipId, firstName: null}, purchaseInfo:{ customerId: vipId, purchasedItems: []},  errorResponse:{ code: 503, message: "SERVICE UNAVAILABLE"}};
+        return errorJson;
+    }
+}
+
 
 export async function fetchSkuDetails(searchNbr, isCarton) {
     console.time('fetchSkuDetails');

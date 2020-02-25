@@ -6,6 +6,8 @@ export const QA_PRINT_CLIENT_ID = "ccdaf242-b1cc-4e7b-be97-933b72a304cc";
 export const PROD_PRINT_CLIENT_ID = "1fcfedb8-5d23-48f6-9a17-97fea3198b10";
 
 //DOMAIN URL's
+export const REWARDS_MANAGEMENT_DOMAIN = "http://localhost:8080";
+
 export const QA_INQUIRY_DOMAIN = 'https://thdapiqai.homedepot.com/img';
 export const PROD_INQUIRY_DOMAIN = 'https://thdapien.homedepot.com/img';
 
@@ -34,6 +36,7 @@ export const DEFAULT_PRINT_QTY = 1;
 export const PRINTER_NAME = "Printer - ";
 export const RECENT_SEARCHES = "Recent Searches";
 
+export const VIP_ID = "VIP_ID";
 export const SKU = "SKU";
 export const UPC = "UPC";
 export const OMS_ID = "OMS_ID";
@@ -112,3 +115,6 @@ export const MANUAL_SEARCH = "MANUAL SEARCH";
 
 export const THERMAL_TECH_PRINTER = "TECB452";
 export const THERMAL_ZEBRA_PRINTER = "ZEB420";
+
+export const RESOURCE_NOT_AVAILABLE_CODE = 204;
+export const SERVICE_UNAVAILABLE_CODE = 503;
