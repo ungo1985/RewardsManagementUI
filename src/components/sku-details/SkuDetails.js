@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './SkuDetails.css'
-import { formatSkuNumber } from '../Util/util.js';
 import Context from '../contexts/Context';
 import { CLEARANCE, PENNY_SKU, ZERO_RETAIL, 
     THREE_DIGITS_OR_LESS, ENTER_QTY_BEFORE_PRINT, TOTAL_UNIT_EXCEEDED,
@@ -402,7 +401,7 @@ class SkuDetails extends Component {
             <div className={"sku-details-div " + (opacityEnabled ? 'opacity' : '')} >
 
                 <div className="sku-div"><span className="sku-text">SKU:</span> <span
-                    className="sku-number">{formatSkuNumber(this.props.sku_nbr)}</span></div>
+                    className="sku-number">{this.props.sku_nbr}</span></div>
 
                 <div className="sku-details-desc">{skuDesc}
                 </div>

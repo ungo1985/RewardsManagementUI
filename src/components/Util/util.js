@@ -120,26 +120,6 @@ export function transformToMac(barcodeString) {
 }
 
 
-export function formatSkuNumber (skuNbr) {
-    
-    let firstSubString, secondSubString, thirdSubString;
-    if(!skuNbr || skuNbr.toLowerCase() === "null"){
-        return '';
-    }
-    if (skuNbr.length === 6) {
-        firstSubString = skuNbr.substring(0,3);
-        secondSubString = skuNbr.substring(3);
-        skuNbr = "0000-" + firstSubString + "-" + secondSubString;
-    }
-    else{
-        firstSubString = skuNbr.substring(0,4);
-        secondSubString = skuNbr.substring(4, 7);
-        thirdSubString = skuNbr.substring(7);
-        skuNbr = firstSubString + "-" + secondSubString + "-" + thirdSubString;
-    }
-    return skuNbr;
-}
-
 export function getToken (callback) {
     
     if (Profile.getEnvironment() === BROWSER) {

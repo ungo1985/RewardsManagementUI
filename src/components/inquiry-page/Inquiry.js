@@ -11,7 +11,7 @@ import { formatSkuBasicInfo, validateUserInput, validateCarton, getCartonCount, 
 import Header from './../header/Header';
 import SearchModal from './../search-modal/SearchModal';
 import SkuNotFound from './../sku-details/sku-not-found/SkuNotFound';
-import SkuDetails from './../sku-details/SkuDetails';
+import CustomerDetails from './../customer-details/CustomerDetails';
 import {
     SCAN, SKU, UPC, CARTON_UPC, OMS_ID, SEARCH_CARTON_UPC,
     SEARCH_OMS_ID, SEARCH_UPC, SEARCH_SKU, ENTER_BUTTON, VIP_ID, RESOURCE_NOT_AVAILABLE_CODE, SERVICE_UNAVAILABLE_CODE
@@ -447,6 +447,29 @@ class Inquiry extends Component {
         }  
     }*/
 
+    /**
+     * This function is used to Show SKU Information also Set  and Get the ItemQuantity and Total Units from Context.
+     * @param  itemQuantity, setItemQuantity, int totalUnits, setTotalUnits
+     */
+   renderCustomerDetails = (customerInfo, setCustomerInfo) => {
+        
+        if ((!this.state.errorBox)) {
+            let state = this.state;
+
+            // Loading Image while calling Fetch Service
+            if (this.state.isLoading) return <Loading />;
+
+            return (
+                // To Show CustomerDetails Information
+                <CustomerDetails customerInfo={state.customerInfo}
+                    errorFlag={state.errorFlag}
+                    errorBox={state.errorBox}
+                    resetErrorFlg={this.setErrorFlag}>
+                </CustomerDetails>
+                );
+        }  
+    }
+
     render() {
         return (
             <Context.Consumer>
@@ -463,7 +486,7 @@ class Inquiry extends Component {
 
                                     <div className="inquiryBody">
                                         {this.renderErrorMessage(context.searchedInput)}
-                                        {/*this.renderSkuDetails(context.itemQuantity, context.setItemQuantity, context.totalUnits, context.setTotalUnits)*/}
+                                        {this.renderCustomerDetails(context.customerInfo, context.setCustomerInfo)}
                                         <div className="clearDiv"></div>
 
                                     </div>
