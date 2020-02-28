@@ -12,6 +12,8 @@ import Header from './../header/Header';
 import SearchModal from './../search-modal/SearchModal';
 import SkuNotFound from './../sku-details/sku-not-found/SkuNotFound';
 import CustomerDetails from './../customer-details/CustomerDetails';
+import PurchaseDetails from './../purchase-details/PurchaseDetails';
+import SubHeader from './../sub-header/SubHeader';
 import {
     SCAN, SKU, UPC, CARTON_UPC, OMS_ID, SEARCH_CARTON_UPC,
     SEARCH_OMS_ID, SEARCH_UPC, SEARCH_SKU, ENTER_BUTTON, VIP_ID, RESOURCE_NOT_AVAILABLE_CODE, SERVICE_UNAVAILABLE_CODE
@@ -451,7 +453,7 @@ class Inquiry extends Component {
      * This function is used to Show SKU Information also Set  and Get the ItemQuantity and Total Units from Context.
      * @param  itemQuantity, setItemQuantity, int totalUnits, setTotalUnits
      */
-   renderCustomerDetails = (customerInfo, setCustomerInfo) => {
+   renderCustomerDetails = () => {
         
         if ((!this.state.errorBox)) {
             let state = this.state;
@@ -470,6 +472,29 @@ class Inquiry extends Component {
         }  
     }
 
+   /**
+     * This function is used to Show SKU Information also Set  and Get the ItemQuantity and Total Units from Context.
+     * @param  itemQuantity, setItemQuantity, int totalUnits, setTotalUnits
+     */
+   renderPurchaseDetails = () => {
+        
+        if ((!this.state.errorBox)) {
+            let state = this.state;
+
+            // Loading Image while calling Fetch Service
+            if (this.state.isLoading) return <Loading />;
+
+            return (
+                // To Show CustomerDetails Information
+                <PurchaseDetails purchaseInfo={state.purchaseInfo}
+                    errorFlag={state.errorFlag}
+                    errorBox={state.errorBox}
+                    resetErrorFlg={this.setErrorFlag}>
+                </PurchaseDetails>
+                );
+        }  
+    }
+
     render() {
         return (
             <Context.Consumer>
@@ -481,12 +506,13 @@ class Inquiry extends Component {
                                     <div>&nbsp;</div>
 
                                 </Header>
-
+                                <SubHeader customerId={this.state.customerId}></SubHeader>
                                 <div className="inquiryPage" onClick={this.closeSkuDetailsImgModal} >
 
                                     <div className="inquiryBody">
                                         {this.renderErrorMessage(context.searchedInput)}
-                                        {this.renderCustomerDetails(context.customerInfo, context.setCustomerInfo)}
+                                        {this.renderCustomerDetails()}
+                                         {this.renderPurchaseDetails()}
                                         <div className="clearDiv"></div>
 
                                     </div>

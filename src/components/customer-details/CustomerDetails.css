@@ -7,6 +7,14 @@
   position: relative;
 }
 
+.customer-details-div{
+  background-color: #FFFFFF;
+  height: 300px;
+  margin: 0px 3px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
 .sku-details-img-div{
   position: relative;
   margin-top: 15px;

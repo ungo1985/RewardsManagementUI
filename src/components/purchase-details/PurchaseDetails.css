@@ -7,6 +7,13 @@
   position: relative;
 }
 
+.purchase-details-div{
+  background-color: #FFFFFF;
+  height: 300px;
+  margin: 0px 3px;
+  position: relative;
+}
+
 .sku-details-img-div{
   position: relative;
   margin-top: 15px;
@@ -202,4 +209,8 @@
 
 .opacity {
   opacity: .05;
+}
+
+.purchase-titles{
+    font-weight: bold;
 }

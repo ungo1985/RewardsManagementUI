@@ -62,6 +62,11 @@
     height: 135px;
 } 
 
+.rewards-image{
+    width: 20%;
+    height: auto;
+} 
+
 .search-text-box{
     width: 320px;
     height: 40px;

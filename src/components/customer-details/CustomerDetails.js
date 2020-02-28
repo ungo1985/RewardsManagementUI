@@ -15,7 +15,7 @@ class CustomerDetails extends Component {
         super(props);
 
         this.state = {
-            customerInfo: null
+            customerInfo: this.props.customerInfo
         }
     }
 
@@ -38,10 +38,7 @@ class CustomerDetails extends Component {
         let opacityEnabled = this.props.errorBox && (!this.props.errorBox.printError);
 
         return (
-            <div className={"sku-details-div " + (opacityEnabled ? 'opacity' : '')} >
-
-                <div className="sku-div"><span className="sku-text">Customer ID: </span> 
-                <span className="sku-number">{custInfo.customerId}</span></div>
+            <div className={"customer-details-div " + (opacityEnabled ? 'opacity' : '')} >
 
                 <div>
                 <span className="sku-number">Name: </span><div className="sku-details-desc">{custInfo.firstName} {custInfo.lastName}</div>

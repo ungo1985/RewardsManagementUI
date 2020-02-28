@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './HomePage.css'
-import scanImage from './../../images/scan_sku_to_start.svg'
+import rewardsImage from './../../images/Rewards.PNG'
 import scanTypesImage from './../../images/scan_types_320x134.png'
 import Header from './../header/Header'
 import SearchModal from "./../search-modal/SearchModal"
@@ -79,8 +79,7 @@ class HomePage extends Component{
                     <div className="homePage">
                         <Header headerTextClassName="titleTxt" id="titleTxt">Rewards Management System</Header>
                         <div id="scan-image" className="scan-image">
-                            <div className="scan-types-image"><img src={scanTypesImage} alt=""/></div>
-                            <img src={scanImage} alt=""/>
+                            <div className="rewards-image"><img src={rewardsImage} alt=""/></div>
                         </div>
                         <div className={"label " + (this.state.showSearchModal ? 'hide': '')} id="label">{HOME_PAGE_LABEL}</div>
                         <div className={"search-text-box "+(this.state.showSearchModal ? 'hide': '')} onClick={() => {this.setStateForModal(true)}}></div>

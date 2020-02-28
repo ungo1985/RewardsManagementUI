@@ -1,0 +1,67 @@
+.Collapsible {
+  border-top: 2px solid lightgrey;
+  margin-top: 5px;
+  background-color: #FFFFFF;
+  border-top: 1px solid lightGrey;
+  border-bottom: 1px solid lightGrey;
+  position: relative;
+}
+.Collapsible__contentInner {
+  padding: 0px 16px 10px 16px;
+  border-top: 0;
+}
+.Collapsible__contentInner p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.Collapsible__contentInner p:last-child {
+  margin-bottom: 0;
+}
+.Collapsible__trigger {
+  display: block;
+  font-size: 1.135em;
+  text-decoration: none;
+  color: grey;
+  position: relative;
+  border: 1px solid white;
+  padding: 9px 10px 10px 16px;
+  color: #F96302;
+}
+.Collapsible__trigger:after {
+  border-style: solid;
+  border-width: .18em .18em 0 0;
+  content: "";
+  display: inline-block;
+  height: 0.65em;
+  right: 2.15em;
+  position: absolute;
+  top: 0.525em;
+  vertical-align: top;
+  width: 0.65em;
+  -ms-transform: rotate(90deg);
+  transform: rotateZ(90deg);
+  -webkit-transform: rotate(134deg);
+}
+.Collapsible__trigger.is-open:after {
+  border-width: 0 0 .18em .18em;
+  top: 0.952em;
+}
+
+.Collapsible__trigger.is-disabled {
+  opacity: 0.5;
+  color: #777
+}
+.CustomTriggerCSS {
+  background-color: lightcoral;
+  transition: background-color 50ms ease;
+}
+.CustomTriggerCSS--open {
+  background-color: darkslateblue;
+}
+.Collapsible__custom-sibling {
+  padding: 5px;
+  font-size: 12px;
+  background-color: #cbb700;
+  color: black;
+}
