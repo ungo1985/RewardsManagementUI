@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
-
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import Inquiry from '../../components/inquiry-page/Inquiry'
 import HomePage from '../home-page/HomePage'
@@ -9,6 +8,7 @@ import PrinterPage from '../printer-page/PrinterPage';
 import Profile from "../../models/Profile";
 import { getToken, manageRecentSearchList } from '../Util/util';
 import { APP_VERSION_FILE} from '../../models/Constants';
+import FormPage from '../form-page/FormPage';
 
 class App extends Component {
     constructor(props) {
@@ -117,7 +117,7 @@ class App extends Component {
                             <Switch>
                                 <Route exact path='/' render={props => <HomePage {...props}/>} />
                                 <Route path='/inquiry' render={props => <Inquiry {...props}/>} />
-                                <Route path='/printers' render={props => <PrinterPage {...props}/>} />	
+                                <Route path='/form' render={props => <FormPage {...props}/>} />	
                             </Switch>
                     </Router>
                 </div>

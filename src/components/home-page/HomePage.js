@@ -6,9 +6,8 @@ import Header from './../header/Header'
 import SearchModal from "./../search-modal/SearchModal"
 import Scan from './../scan/Scan';
 import Context from '../../components/contexts/Context'
-import CrudComponent from '../crud-component/CrudComponent';
-import { HOME_PAGE_LABEL} from '../../models/Constants';
-import {SCAN_SEARCH} from '../../models/Constants';
+import { HOME_PAGE_LABEL, SCAN_SEARCH, ADD_CUSTOMER} from '../../models/Constants';
+import { Link } from 'react-router-dom';
 
 class HomePage extends Component{
     
@@ -78,13 +77,15 @@ class HomePage extends Component{
                 {(context) => (
                     <div className="homePage">
                         <Header headerTextClassName="titleTxt" id="titleTxt">Rewards Management System</Header>
-                        <div id="scan-image" className="scan-image">
-                            <div className="rewards-image"><img src={rewardsImage} alt=""/></div>
+                        <div id="rewards-image">
+                            <div className="rewards-image"><img src={rewardsImage} alt="rewards image"/></div>
                         </div>
                         <div className={"label " + (this.state.showSearchModal ? 'hide': '')} id="label">{HOME_PAGE_LABEL}</div>
                         <div className={"search-text-box "+(this.state.showSearchModal ? 'hide': '')} onClick={() => {this.setStateForModal(true)}}></div>
                         {this.renderSearchModal(this.state.showSearchModal)}
-                        <CrudComponent></CrudComponent>
+                        <Link to="/form">
+                            <button type="button" className="button btnContainer">{ADD_CUSTOMER}</button>
+                        </Link>
                     </div>
                 )}
                 </Context.Consumer>

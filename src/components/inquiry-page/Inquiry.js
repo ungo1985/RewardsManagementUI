@@ -4,7 +4,6 @@ import Context from '../../components/contexts/Context';
 import Loading from '../../components/Loading';
 import BackNavigator from "../back-navigator/BackNavigator";
 import PrinterContext from '../contexts/PrinterContext';
-import CrudComponent from '../crud-component/CrudComponent';
 import Scan from '../scan/Scan';
 import ResponseHelper from '../Util/ResponseHelper.js';
 import { formatSkuBasicInfo, validateUserInput, validateCarton, getCartonCount, formatCustomerInfo, formatPurchaseInfo } from '../Util/util';

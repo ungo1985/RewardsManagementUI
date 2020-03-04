@@ -49,12 +49,13 @@
     text-align: center;
 }
 
-#scan-image{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+#rewards-image{
+    display: block;
     margin-top: 10%;
-    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+    height: auto;
 }
 
 .scan-types-image{
@@ -62,20 +63,32 @@
     height: 135px;
 } 
 
-.rewards-image{
-    width: 20%;
-    height: auto;
-} 
-
 .search-text-box{
-    width: 320px;
+    width: 50%;
     height: 40px;
     background-color: #F9F9F9;
     border: 1px solid #CCCCCC;
     border-radius: 1px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hide {
     display: none;
+}
+
+.btnContainer {
+    line-height: 38px;
+    width: calc(100% - 2px); 
+    font-size: 20px; 
+}
+
+.button{
+    font-size: 20px;
+    color: #FFF;
+    text-decoration: solid;
+    background-color: #f96302;
+    border: 1px solid #f96302;
+    position: absolute;
+    bottom: 10px;
 }

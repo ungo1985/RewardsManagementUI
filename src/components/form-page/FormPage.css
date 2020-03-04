@@ -1,0 +1,20 @@
+.form_label {
+    font-weight: bold;
+    font-size: 16px;
+    padding-left: 5%;
+    margin-bottom: 5px;
+    margin-top: 30px;
+}
+
+.form-page{
+    top: 0;
+}
+
+.form-textbox{
+    padding-left: 5%;
+}
+
+.submit-button{
+    padding-left: 5%;
+    padding-top: 1%;
+}
