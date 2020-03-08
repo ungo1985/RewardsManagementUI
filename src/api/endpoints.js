@@ -45,6 +45,46 @@ export async function fetchCustomerAndPurchaseInfo(vipId) {
     }
 }
 
+/* This function is used to make the call to Inventory Management Print Service for Print Details
+ * @method  fetchPrinters *
+ * @param storeNumber
+ * @param printerType
+ * @returns  {response object}*/
+export async function postCustomer(vipId, firstName, lastName, streetAddress, city, state, zipCode, birthday, goldStatusFlag, points) {
+    console.time('postCustomer');
+    console.log("Start postCustomer: " + JSON.stringify(firstName) + " " + JSON.stringify(lastName));
+    const endpoint = '/rws/postCustomer';
+    const domain = REWARDS_MANAGEMENT_DOMAIN;
+    var url = domain + endpoint;
+
+    let json_string = {
+        "customerId": vipId,
+        "firstName": firstName,
+        "lastName": lastName,
+        "streetAddress": streetAddress,
+        "city" : city,
+        "state": state,
+        "zipCode": zipCode,
+        "birthday": birthday,
+        "goldStatusFlag": goldStatusFlag,
+        "points": points
+    };
+    const response = await fetch(url, {
+        method: 'post',
+        body: JSON.stringify(json_string),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .catch(function (error) {
+            console.log("ERROR in rewards management service: " + error);
+        })
+
+    const json = await response.json();
+    console.timeEnd('postCustomer');
+    return json;
+} 
+
 
 export async function fetchSkuDetails(searchNbr, isCarton) {
     console.time('fetchSkuDetails');

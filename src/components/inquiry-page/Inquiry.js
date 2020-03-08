@@ -55,20 +55,18 @@ class Inquiry extends Component {
         Scan.getScans(this.skuScanFxn);
 
         // Get Sku Information from Context when same sku entered
-        if (this.context.skuBasicInfoBySkuStore 
-            && this.context.skuBasicInfoBySkuStore.searchedInput === this.context.searchedInput
-            && this.props.history.location.state 
+        if (this.props.history.location.state 
             && this.props.history.location.state.fromPage 
-            && this.props.history.location.state.fromPage === '/printers'
+            && this.props.history.location.state.fromPage === '/form'
             ) {
             
             this.setState({
-                skuBasicInfo: this.context.skuBasicInfoBySkuStore,
                 isLoading: false,
-                //skuNbr: this.context.skuNbr,
-                errorBox: this.context.errorBox,
-                isCarton: this.context.isCarton,
-                cartonCount: this.context.cartonCount
+                searchedInput: this.context.searchedInput,
+                customerId: this.context.customerId,
+                customerInfo: this.context.customerInfo,
+                purchaseInfo: this.context.purchaseInfo,
+                errorBox: this.context.errorBox
             });
 
         } else {
@@ -516,7 +514,7 @@ class Inquiry extends Component {
 
                                     </div>
                                     {/* Search Modal */}
-                                    {this.state.showSearchModal && <SearchModal fetchSkuDetails={this.fetchSkuDetails(Context.searchedInput, validateCarton(context.searchedInput))} setStateForModal={this.setStateForModal}></SearchModal>}
+                                    {this.state.showSearchModal && <SearchModal fetchSkuDetails={this.fetchSkuDetails(context.searchedInput, validateCarton(context.searchedInput))} setStateForModal={this.setStateForModal}></SearchModal>}
                                 </div>
                             </div>
                 )}
