@@ -24,15 +24,9 @@ class HomePage extends Component{
     }
 
     componentDidMount() {
-        Scan.getScans(this.skuScanFxn);
-
         this.setState({
             fromPage:this.props.location.pathname
         });
-    }
-
-    componentDidUpdate() {
-        Scan.getScans(this.skuScanFxn);
     }
 
     skuScanFxn = (e) => {

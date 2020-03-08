@@ -9,6 +9,7 @@ import Profile from "../../models/Profile";
 import { getToken, manageRecentSearchList } from '../Util/util';
 import { APP_VERSION_FILE} from '../../models/Constants';
 import FormPage from '../form-page/FormPage';
+import DeletePage from '../delete-page/DeletePage';
 
 class App extends Component {
     constructor(props) {
@@ -117,7 +118,8 @@ class App extends Component {
                             <Switch>
                                 <Route exact path='/' render={props => <HomePage {...props}/>} />
                                 <Route path='/inquiry' render={props => <Inquiry {...props}/>} />
-                                <Route path='/form' render={props => <FormPage {...props}/>} />	
+                                <Route path='/form' render={props => <FormPage {...props}/>} />
+                                <Route path='/delete' render={props => <DeletePage {...props}/>} />
                             </Switch>
                     </Router>
                 </div>

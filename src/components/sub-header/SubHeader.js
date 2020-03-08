@@ -15,16 +15,12 @@ export default class SubHeader extends Component {
                 </div>
                 { this.props.hideGeoLocation ? null : 
                 <div className="sku-div-child">
-
-                    <Link to={{
-                        pathname: '/geolocations', state: {
-                            skuNbr: this.props.skuNbr, skuStatus: this.props.skuStatus,
-                            viewMoreTitle: "Delete Customer"
-                        }
-                    }} className="">
-                         <span className="edit-customer"><img src={editIcon}  alt="Edit Customer"/></span>
+                        <Link to="/form">
+                            <span className="edit-customer"><img src={editIcon}  alt="Edit Customer"/></span>
+                        </Link>
+                        <Link to="/delete">
                         <span className="delete-customer"><img src={deleteIcon}  alt="Delete Customer"/></span>
-                    </Link>
+                        </Link>
                 </div>}
             </div>
         );

@@ -48,16 +48,15 @@ class Inquiry extends Component {
 
 
     /**
-     * This function used to Call the Fetch Inquiry Service
-     * Dont Reload the page suppose context has same sku , Else call new Service
+     * This function used to Call the Fetch Rewards Management Service
+     * Dont Reload the page suppose context has same vipId , Else call Service
      */
     componentDidMount() {
-        Scan.getScans(this.skuScanFxn);
-
-        // Get Sku Information from Context when same sku entered
+        // Get Customer Information from Context when same vipId entered
         if (this.props.history.location.state 
             && this.props.history.location.state.fromPage 
-            && this.props.history.location.state.fromPage === '/form'
+            && (this.props.history.location.state.fromPage === '/form' 
+                || this.props.history.location.state.fromPage === '/delete')
             ) {
             
             this.setState({

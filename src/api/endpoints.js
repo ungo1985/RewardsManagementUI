@@ -45,10 +45,18 @@ export async function fetchCustomerAndPurchaseInfo(vipId) {
     }
 }
 
-/* This function is used to make the call to Inventory Management Print Service for Print Details
- * @method  fetchPrinters *
- * @param storeNumber
- * @param printerType
+/* This function is used to make the call to Rewards Management Service to update or add customer
+ * @method  postCustomer *
+ * @param vipId
+ * @param firstName
+ * @param lastName
+ * @param streetAddress
+ * @param city
+ * @param state
+ * @param zipCode
+ * @param birthday
+ * @param goldStatusFlag
+ * @param points
  * @returns  {response object}*/
 export async function postCustomer(vipId, firstName, lastName, streetAddress, city, state, zipCode, birthday, goldStatusFlag, points) {
     console.time('postCustomer');
@@ -82,6 +90,28 @@ export async function postCustomer(vipId, firstName, lastName, streetAddress, ci
 
     const json = await response.json();
     console.timeEnd('postCustomer');
+    return json;
+} 
+
+export async function deleteCustomer(vipId) {
+    console.time('deleteCustomer');
+    console.log("Start deleteCustomer: " + vipId);
+    const endpoint = '/rws/deleteCustomer?vipId=' + vipId;
+    const domain = REWARDS_MANAGEMENT_DOMAIN;
+    var url = domain + endpoint;
+
+    const response = await fetch(url, {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .catch(function (error) {
+            console.log("ERROR in rewards management service: " + error);
+        })
+
+    const json = await response.json();
+    console.timeEnd('deleteCustomer');
     return json;
 } 
 

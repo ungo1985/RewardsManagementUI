@@ -4,10 +4,11 @@ import Header from './../header/Header';
 import BackNavigator from "../back-navigator/BackNavigator";
 import { postCustomer } from '../../api/endpoints';
 import {
-    RESOURCE_NOT_AVAILABLE_CODE, SERVICE_UNAVAILABLE_CODE
+    RESOURCE_NOT_AVAILABLE_CODE
 } from '../../models/Constants';
 import ResponseHelper from '../Util/ResponseHelper.js';
 import Context from '../../components/contexts/Context';
+import { validateForAlphaInput, validateForNumericInput, validateDate, validateForAlphaNumericAndSpaceInput } from '../Util/util';
 
 class FormPage extends Component{
 
@@ -22,7 +23,8 @@ class FormPage extends Component{
             serviceDown: false,
             customerNotFound: false,
             errorFlag: false,
-            errorBox: null
+            errorBox: null,
+            buttonCSS: 'button_disable'
         }
 
        // this.renderErrorMessage = this.renderErrorMessage.bind(this);
@@ -30,117 +32,179 @@ class FormPage extends Component{
        // this.handleLoading = this.handleLoading.bind(this)
     }
 
-    processCustomer = () => {
-        console.log("processCustomer: " + document.getElementById("firstName").value);
+    validateFirstName = () =>{
+        let isValid = validateForAlphaInput(document.getElementById("firstName").value);
+        console.log("firstName " + isValid);
+        return isValid;
+    }
 
-        let customerId = this.props.customerId;
-        let firstName = document.getElementById("firstName").value;
-        let lastName = document.getElementById("lastName").value;
-        let streetAddress = document.getElementById("streetAddress").value;
-        let city = document.getElementById("city").value;
-        let state = document.getElementById("state").value;
+    validateLastName = () =>{
+        let isValid = validateForAlphaInput(document.getElementById("lastName").value);
+        console.log("lastName " + isValid);
+        return isValid;
+    }
+
+    validateStreetAddress = () =>{
+        let isValid = validateForAlphaNumericAndSpaceInput(document.getElementById("streetAddress").value);
+        console.log("streetAddress " + isValid);
+        return isValid;
+    }
+
+    validateCity = () =>{
+        let isValid = validateForAlphaInput(document.getElementById("city").value);
+        console.log("city " + isValid);
+        return isValid;
+    }
+
+   validateZipCode = () =>{
         let zipCode = document.getElementById("zipCode").value;
+        let size = zipCode.length;
+        let isValid = (validateForNumericInput(zipCode) && (size === 5))
+        console.log("zipCode " + isValid);
+        return isValid;
+    }
+
+    validateBirthday = () =>{
         let birthday = document.getElementById("birthday").value;
-        let goldStatusFlag = "N";
-        let points = 0;
+        let isValid = validateDate(birthday);
+        console.log("birthday " + birthday + " isValid " + isValid);
+        return isValid;
+    }
 
-        if(this.props.customerInfo){
-            goldStatusFlag = this.props.customerInfo.goldStatusFlag;
-            points = this.props.customerInfo.points;
-        }
+    validateFormInput = () =>{
+        let isValid = false;
+        this.setState({buttonCSS: 'button_disable'});
+        if(this.validateFirstName() 
+            && this.validateLastName()
+            && this.validateStreetAddress()
+            && this.validateCity()
+            && this.validateZipCode()
+            && this.validateBirthday()
+            ){
+                isValid = true;
+                this.setState({buttonCSS: 'button_enable'});
+            }
+        console.log("validateFormInput: " + isValid);
+        return isValid;
+    }
 
-       // var inputType = validateUserInput(input);
+    processCustomer = () => {
 
-        //if(inputType === VIP_ID){
-            postCustomer(customerId, firstName, lastName, streetAddress, city, state, zipCode, birthday, goldStatusFlag, points).then(data =>{
-                let customerObject = data.customerInfo;
-                let purchaseObject = data.purchaseInfo;
-                let errorObject = data.errorResponse;
+        if(this.validateFormInput()){
+                    console.log("processCustomer: " + document.getElementById("firstName").value);
 
-                console.log("customerInfo: " + JSON.stringify(data.customerInfo));
-                console.log("purchaseInfo: " + JSON.stringify(data.purchaseInfo));
-                console.log("errorResponse: " + JSON.stringify(data.errorResponse));
+                    let customerId = this.props.customerId;
+                    let firstName = document.getElementById("firstName").value;
+                    let lastName = document.getElementById("lastName").value;
+                    let streetAddress = document.getElementById("streetAddress").value;
+                    let city = document.getElementById("city").value;
+                    let state = document.getElementById("state").value;
+                    let zipCode = document.getElementById("zipCode").value;
+                    let birthday = document.getElementById("birthday").value;
+                    let goldStatusFlag = "N";
+                    let points = 0;
 
-                if(errorObject){
-                    if(errorObject.code === RESOURCE_NOT_AVAILABLE_CODE){
+                    if(this.props.customerInfo){
+                        goldStatusFlag = this.props.customerInfo.goldStatusFlag;
+                        points = this.props.customerInfo.points;
+                    }
+
+                  // var isValid = validateUserInput(input);
+
+                   //console.log("isValid: " + isValid);
+
+                    //if(inputType === VIP_ID){
+                        postCustomer(customerId, firstName, lastName, streetAddress, city, state, zipCode, birthday, goldStatusFlag, points).then(data =>{
+                            let customerObject = data.customerInfo;
+                            let purchaseObject = data.purchaseInfo;
+                            let errorObject = data.errorResponse;
+
+                            console.log("customerInfo: " + JSON.stringify(data.customerInfo));
+                            console.log("purchaseInfo: " + JSON.stringify(data.purchaseInfo));
+                            console.log("errorResponse: " + JSON.stringify(data.errorResponse));
+
+                            if(errorObject){
+                                if(errorObject.code === RESOURCE_NOT_AVAILABLE_CODE){
+                                    // To Store local Error Message in Context
+                                    const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: true };
+                                    this.setState({
+                                        errorBox: errorBox,
+                                        customerNotFound: true,
+                                        serviceDown: false,
+                                        isLoading: false
+                                    });
+                                   // this.context.setErrorBox(errorBox);
+                                   // this.context.setSearchedInput(input);
+                                }
+                                else{
+                                     // To Store local Error Message in Context
+                                    const errorBox = { serviceDown: true, customerNotFound: this.state.customerNotFound };
+                                    this.setState({
+                                        errorBox: errorBox,
+                                        customerNotFound: false,
+                                        serviceDown: true,
+                                        isLoading: false
+                                    });
+                                    //this.context.setErrorBox(errorBox);
+                                    //this.context.setSearchedInput(input);
+                                }
+                            }
+                            else{
+                                console.log("FormPage Success");
+                                this.context.setSearchedInput(data.customerId);
+                                this.context.setCustomerInfo(customerObject);
+                                this.context.setPurchaseInfo(purchaseObject);
+                                this.context.setErrorBox(null);
+
+                                this.setState(
+                                    {
+                                        isLoading: false,
+                                        customerId: data.customerId,
+                                        customerInfo: customerObject,
+                                        serviceDown: false,
+                                        errorBox: null
+                                    });
+
+                                this.props.history.push({pathname: '/inquiry', state:{
+                                    searchInput: data.customerId,
+                                    customerId: data.customerId,
+                                    customerInfo: customerObject,
+                                    purchaseInfo: purchaseObject,
+                                    isLoading: false
+                                }})
+                            }
+                        }).catch(error => {
+                        console.log("ERROR PROCESSING CUSTOMER" + error.message);
+                        try {
+                            let response = JSON.parse(error.message);
+                            let errorResponse = response.errorResponse;
+                            let helper = new ResponseHelper();
+                            this.handleError(errorResponse, helper);
+                             this.setState({
+                                serviceDown: true,
+                                isLoading: false
+                            });
+                        }
+                        catch (err) {
+                            this.setState({
+                                serviceDown: true,
+                                isLoading: false
+                            });
+                        }
+
                         // To Store local Error Message in Context
-                        const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: true };
+                        const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: this.state.customerNotFound };
                         this.setState({
                             errorBox: errorBox,
-                            customerNotFound: true,
-                            serviceDown: false,
                             isLoading: false
                         });
                        // this.context.setErrorBox(errorBox);
                        // this.context.setSearchedInput(input);
-                    }
-                    else{
-                         // To Store local Error Message in Context
-                        const errorBox = { serviceDown: true, customerNotFound: this.state.customerNotFound };
-                        this.setState({
-                            errorBox: errorBox,
-                            customerNotFound: false,
-                            serviceDown: true,
-                            isLoading: false
                         });
-                        //this.context.setErrorBox(errorBox);
-                        //this.context.setSearchedInput(input);
-                    }
-                }
-                else{
-                    console.log("FormPage Success");
-                    this.context.setSearchedInput(data.customerId);
-                    this.context.setCustomerInfo(customerObject);
-                    this.context.setPurchaseInfo(purchaseObject);
-                    this.context.setErrorBox(null);
+                    //}
+                    //else{}
+        }
 
-                    this.setState(
-                        {
-                            isLoading: false,
-                            customerId: data.customerId,
-                            customerInfo: customerObject,
-                            serviceDown: false,
-                            errorBox: null
-                        });
-
-                    this.props.history.push({pathname: '/inquiry', state:{
-                        searchInput: data.customerId,
-                        customerId: data.customerId,
-                        customerInfo: customerObject,
-                        purchaseInfo: purchaseObject,
-                        isLoading: false
-                    }})
-                }
-            }).catch(error => {
-            console.log("ERROR PROCESSING CUSTOMER" + error.message);
-            try {
-                let response = JSON.parse(error.message);
-                let errorResponse = response.errorResponse;
-                let helper = new ResponseHelper();
-                this.handleError(errorResponse, helper);
-                 this.setState({
-                    serviceDown: true,
-                    isLoading: false
-                });
-            }
-            catch (err) {
-                this.setState({
-                    serviceDown: true,
-                    isLoading: false
-                });
-            }
-
-            // To Store local Error Message in Context
-            const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: this.state.customerNotFound };
-            this.setState({
-                errorBox: errorBox,
-                isLoading: false
-            });
-           // this.context.setErrorBox(errorBox);
-           // this.context.setSearchedInput(input);
-            });
-        //}
-        //else{}
     }
 
     render(){
@@ -154,13 +218,13 @@ class FormPage extends Component{
                         <div>&nbsp;</div>
                     </Header>
                 <div className="form_label">First Name</div>
-                <div className="form-textbox"><input type="text" id="firstName"></input></div>
+                <div className="form-textbox"><input type="text" id="firstName" onKeyUp={this.validateFormInput}></input></div>
                 <div className="form_label">Last Name</div>
-                <div className="form-textbox"><input type="text" id="lastName"></input></div>
+                <div className="form-textbox"><input type="text" id="lastName"  onKeyUp={this.validateFormInput}></input></div>
                 <div className="form_label">Street Address</div>
-                <div className="form-textbox"><input type="text" id="streetAddress"></input></div>
+                <div className="form-textbox"><input type="text" id="streetAddress"  onKeyUp={this.validateFormInput}></input></div>
                 <div className="form_label">City</div>
-                <div className="form-textbox"><input type="text" id="city"></input></div>
+                <div className="form-textbox"><input type="text" id="city"  onKeyUp={this.validateFormInput}></input></div>
                 <div className="form_label">State</div>
                 <div className="form-textbox">
                     <select id="state">
@@ -218,10 +282,10 @@ class FormPage extends Component{
                     </select>
                 </div>
                 <div className="form_label">Zip Code</div>
-                <div className="form-textbox"><input type="number" id="zipCode"></input></div>
+                <div className="form-textbox"><input type="number" id="zipCode" onKeyUp={this.validateFormInput}></input></div>
                 <div className="form_label">Birthday</div>
-                <div className="form-textbox"><input type="date" id="birthday"></input></div>
-                <div id="submit-button" className="submit-button"><button onClick={this.processCustomer}>Submit</button></div>
+                <div className="form-textbox"><input type="date" id="birthday" onKeyUp={this.validateFormInput}></input></div>
+                <div><button id="submit-button" className={this.state.buttonCSS + " submit-button disabled"} onClick={this.processCustomer}>Submit</button></div>
             </div>
             )}
          </Context.Consumer>

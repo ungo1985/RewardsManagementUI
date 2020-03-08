@@ -86,7 +86,7 @@ class SearchForm extends Component{
      *  this.validLength(123);
      */
     validLength(input) {
-        if (input.length >= 6 && input.length <= 14) {
+        if (input.length == 7) {
             return true;
         }
         return false;
