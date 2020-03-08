@@ -13,7 +13,6 @@ class BackNavigator extends Component{
 
     onBackClick() {
         console.log("back clicked!");
-        //this.props.setItemQuantity("");
         this.props.history.replace({pathname: './'});
         
     };
@@ -23,7 +22,7 @@ class BackNavigator extends Component{
           <div>
               <div className="backTemp" onClick={this.onBackClick}>
                   <img className='backBtn' src={backBtn} alt="back-button"/>
-                  <div className="backBtnTxt">Cancel</div>
+                  <div className="backBtnTxt">Homepage</div>
               </div>
           </div>
         );

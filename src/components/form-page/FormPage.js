@@ -24,12 +24,15 @@ class FormPage extends Component{
             customerNotFound: false,
             errorFlag: false,
             errorBox: null,
-            buttonCSS: 'button_disable'
+            buttonCSS: 'button_disable',
+            fromPage: ''
         }
+    }
 
-       // this.renderErrorMessage = this.renderErrorMessage.bind(this);
-       // this.setErrorFlag = this.setErrorFlag.bind(this);
-       // this.handleLoading = this.handleLoading.bind(this)
+    componentDidMount(){
+       this.setState({
+            fromPage:this.props.location.pathname
+        });
     }
 
     validateFirstName = () =>{
@@ -88,6 +91,17 @@ class FormPage extends Component{
         return isValid;
     }
 
+    getFormParams = () =>{
+        if(this.context.customerInfo !== null){ 
+            document.getElementById('firstName').value = this.context.customerInfo.firstName;
+            document.getElementById('lastName').value = this.context.customerInfo.lastName;
+            document.getElementById('streetAddress').value = this.context.customerInfo.streetAddress;
+            document.getElementById('city').value = this.context.customerInfo.city;
+            document.getElementById('zipCode').value = this.context.customerInfo.zipCode;
+            document.getElementById('birthday').value = this.context.customerInfo.birthday;
+            }
+    }
+
     processCustomer = () => {
 
         if(this.validateFormInput()){
@@ -108,12 +122,6 @@ class FormPage extends Component{
                         goldStatusFlag = this.props.customerInfo.goldStatusFlag;
                         points = this.props.customerInfo.points;
                     }
-
-                  // var isValid = validateUserInput(input);
-
-                   //console.log("isValid: " + isValid);
-
-                    //if(inputType === VIP_ID){
                         postCustomer(customerId, firstName, lastName, streetAddress, city, state, zipCode, birthday, goldStatusFlag, points).then(data =>{
                             let customerObject = data.customerInfo;
                             let purchaseObject = data.purchaseInfo;
@@ -201,8 +209,6 @@ class FormPage extends Component{
                        // this.context.setErrorBox(errorBox);
                        // this.context.setSearchedInput(input);
                         });
-                    //}
-                    //else{}
         }
 
     }
@@ -211,7 +217,8 @@ class FormPage extends Component{
         return(
          <Context.Consumer>
          {(context) => (
-            <div className="form-page">
+             
+            <div className="form-page" onLoad={this.getFormParams}>
                     <Header>
                         <BackNavigator {...this.props} />
                         <div className="headerTxt">Customer Form</div>
@@ -222,7 +229,7 @@ class FormPage extends Component{
                 <div className="form_label">Last Name</div>
                 <div className="form-textbox"><input type="text" id="lastName"  onKeyUp={this.validateFormInput}></input></div>
                 <div className="form_label">Street Address</div>
-                <div className="form-textbox"><input type="text" id="streetAddress"  onKeyUp={this.validateFormInput}></input></div>
+                <div className="form-textbox"><input type="text" id="streetAddress" onKeyUp={this.validateFormInput}></input></div>
                 <div className="form_label">City</div>
                 <div className="form-textbox"><input type="text" id="city"  onKeyUp={this.validateFormInput}></input></div>
                 <div className="form_label">State</div>

@@ -84,10 +84,12 @@ class Inquiry extends Component {
 
         if(inputType === VIP_ID){
             fetchCustomerAndPurchaseInfo(input).then(data =>{
+                let custId = data.customerId;
                 let customerObject = data.customerInfo;
                 let purchaseObject = data.purchaseInfo;
                 let errorObject = data.errorResponse;
 
+                console.log("custId: " + custId);
                 console.log("customerInfo: " + JSON.stringify(data.customerInfo));
                 console.log("purchaseInfo: " + JSON.stringify(data.purchaseInfo));
                 console.log("errorResponse: " + JSON.stringify(data.errorResponse));
@@ -121,7 +123,9 @@ class Inquiry extends Component {
                 else{
                     //clearing context
                     console.log("clearing context");
-                    this.context.setSavedRecentSearches(data.searchInput);
+                    this.context.setSavedRecentSearches(custId);
+                    this.context.setSearchedInput(custId);
+                    this.context.setCustomerId(custId);
                     this.context.setCustomerInfo(customerObject);
                     this.context.setPurchaseInfo(purchaseObject);
                     this.context.setErrorBox(null);
@@ -129,7 +133,7 @@ class Inquiry extends Component {
                     this.setState(
                         {
                             isLoading: false,
-                            customerId: data.customerId,
+                            customerId: custId,
                             customerInfo: customerObject,
                             purchaseInfo: purchaseObject,
                             serviceDown: false,

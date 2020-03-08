@@ -87,6 +87,12 @@ class App extends Component {
         });
     }
 
+    setCustomerId = (value) => {
+        this.setState({
+        	customerId: value
+        });
+    }
+
 
     setSavedRecentSearches = (value) => {
 
@@ -111,7 +117,9 @@ class App extends Component {
             customerInfo: this.state.customerInfo,
             setCustomerInfo: this.setCustomerInfo,
             purchaseInfo: this.state.purchaseInfo,
-            setPurchaseInfo: this.setPurchaseInfo
+            setPurchaseInfo: this.setPurchaseInfo,
+            customerId: this.state.customerId,
+            setCustomerId: this.setCustomerId
         }}>
                 <div className='application-container'>
                     <Router>
