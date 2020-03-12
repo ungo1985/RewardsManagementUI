@@ -16,7 +16,6 @@ class SubHeader extends Component {
                 <div className="sku-div-child">
                     <span className="sku-number-sub-header">{this.props.customerId}</span>
                 </div>
-                { this.props.hideGeoLocation ? null : 
                 <div className="sku-div-child">
                        <Link to={{
                             pathname: '/form', state: {
@@ -27,11 +26,12 @@ class SubHeader extends Component {
                         }} className="">
                              <span className="edit-customer"><img src={editIcon}  alt="Edit Customer"/></span>
                         </Link>
-
+                </div>
+                <div className="sku-div-child">
                         <Link to="/delete">
                         <span className="delete-customer"><img src={deleteIcon}  alt="Delete Customer"/></span>
                         </Link>
-                </div>}
+                </div>
             </div>
         )}
         </Context.Consumer>
