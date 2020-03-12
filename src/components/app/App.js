@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import ReactGA from 'react-ga';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import Inquiry from '../../components/inquiry-page/Inquiry'
 import HomePage from '../home-page/HomePage'
 import Context from '../../components/contexts/Context'
-import PrinterPage from '../printer-page/PrinterPage';
-import Profile from "../../models/Profile";
-import { getToken, manageRecentSearchList } from '../Util/util';
-import { APP_VERSION_FILE} from '../../models/Constants';
+import { manageRecentSearchList } from '../Util/util';
 import FormPage from '../form-page/FormPage';
 import DeletePage from '../delete-page/DeletePage';
 
@@ -24,34 +20,9 @@ class App extends Component {
             showSearchModal: false,
             isLoading: true,
             itemQuantity: '',
-            errorBox: null
+            serviceDown: false,
+            customerNotFound: false
         }
-
-        this.readTextFile(APP_VERSION_FILE);
-        this.readIntentFromDevice();
-    }
-
-    readIntentFromDevice() {
-        getToken(this.deviceCallBackFn);
-    }
-
-    deviceCallBackFn = (e) => {
-        Profile.setTokenData(e.userData.thdSsoToken);
-        Profile.userId(e.userData.associateUserID);
-    }
-
-    readTextFile = (file) => {
-        let rawFile = new XMLHttpRequest();
-        rawFile.open("GET", file, false);
-        rawFile.onreadystatechange = function () {
-            if (rawFile.readyState === 4) {
-                if (rawFile.status === 200 || rawFile.status === 0) {
-                    let versionNbr = rawFile.responseText;
-                    console.log("App Version: ", versionNbr);
-                }
-            }
-        };
-        rawFile.send(null);
     }
 
    
@@ -63,10 +34,6 @@ class App extends Component {
      */
     setStateForModal = (value) => {
         this.setState({showSearchModal: value})
-    }
-
-    setErrorBox = (value) => {
-        this.setState({errorBox: value})
     }
     
     setSearchedInput = (value) => {
@@ -90,6 +57,18 @@ class App extends Component {
     setCustomerId = (value) => {
         this.setState({
         	customerId: value
+        });
+    }
+
+    setServiceDown = (value) => {
+        this.setState({
+        	serviceDown: value
+        });
+    }
+
+    setCustomerNotFound = (value) => {
+        this.setState({
+        	customerNotFound: value
         });
     }
 
@@ -119,7 +98,11 @@ class App extends Component {
             purchaseInfo: this.state.purchaseInfo,
             setPurchaseInfo: this.setPurchaseInfo,
             customerId: this.state.customerId,
-            setCustomerId: this.setCustomerId
+            setCustomerId: this.setCustomerId,
+            serviceDown: this.state.serviceDown,
+            setServiceDown: this.setServiceDown,
+            customerNotFound: this.state.customerNotFound,
+            setCustomerNotFound: this.setCustomerNotFound
         }}>
                 <div className='application-container'>
                     <Router>

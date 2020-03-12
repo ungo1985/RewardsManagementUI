@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import './HomePage.css'
 import rewardsImage from './../../images/Rewards.PNG'
-import scanTypesImage from './../../images/scan_types_320x134.png'
 import Header from './../header/Header'
 import SearchModal from "./../search-modal/SearchModal"
-import Scan from './../scan/Scan';
 import Context from '../../components/contexts/Context'
-import { HOME_PAGE_LABEL, SCAN_SEARCH, ADD_CUSTOMER} from '../../models/Constants';
+import { HOME_PAGE_LABEL, ADD_CUSTOMER} from '../../models/Constants';
 import { Link } from 'react-router-dom';
 
 class HomePage extends Component{
@@ -20,32 +18,17 @@ class HomePage extends Component{
         }
         this.renderSearchModal = this.renderSearchModal.bind(this);
         this.setStateForModal = this.setStateForModal.bind(this);
-        this.skuScanFxn = this.skuScanFxn.bind(this);
     }
 
     componentDidMount() {
         this.setState({
             fromPage:this.props.location.pathname
         });
-    }
-
-    skuScanFxn = (e) => {
-        let scannedInput = e;
-        if (!scannedInput) {
-            return;
-        }
-        console.log("Homepage scannedInput = " + scannedInput);
-        this.context.setSearchedInput(scannedInput);
-        this.props.history.push(
-            { 
-                pathname: './inquiry', 
-                state: 
-                { 
-                    searchInput: scannedInput,
-                    fromPage: this.state.fromPage
-                }
-            }
-        );
+                //resetting context
+         this.context.setSearchedInput("");
+         this.context.setCustomerInfo(null);
+         this.context.setPurchaseInfo(null);
+         this.context.setCustomerId("");
     }
 
     renderSearchModal(value){
@@ -72,7 +55,7 @@ class HomePage extends Component{
                     <div className="homePage">
                         <Header headerTextClassName="titleTxt" id="titleTxt">Rewards Management System</Header>
                         <div id="rewards-image">
-                            <div className="rewards-image"><img src={rewardsImage} alt="rewards image"/></div>
+                            <div className="rewards-image"><img src={rewardsImage} alt="rewards"/></div>
                         </div>
                         <div className={"label " + (this.state.showSearchModal ? 'hide': '')} id="label">{HOME_PAGE_LABEL}</div>
                         <div className={"search-text-box "+(this.state.showSearchModal ? 'hide': '')} onClick={() => {this.setStateForModal(true)}}></div>

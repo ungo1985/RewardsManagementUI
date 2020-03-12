@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import './PurchaseDetails.css'
 import Context from '../contexts/Context';
 import ItemPurchases from './../item-purchases/ItemPurchases';
-import { CLEARANCE, PENNY_SKU, ZERO_RETAIL, 
-    THREE_DIGITS_OR_LESS, ENTER_QTY_BEFORE_PRINT, TOTAL_UNIT_EXCEEDED,
-    TOTAL_PRICE_EXCEEDED_1, TOTAL_PRICE_EXCEEDED_2, 
-    TOTAL_PRICE_THRESHOLD, PACK_SIZE_NOT_FOUND,
-    PENNY_SKU_MESSAGE, ZERO_RETAIL_MESSAGE, MAMA_SKU, BABY_SKU,
-     MAMA_SKU_MESSAGE, BABY_SKU_MESSAGE, TOTAL_UNIT_COUNT_THRESHOLD} from '../../models/Constants';
 class PurchaseDetails extends Component {
 
 
@@ -18,14 +12,6 @@ class PurchaseDetails extends Component {
             purchaseInfo: this.props.purchaseInfo
         }
 
-    }
-
-    
-    /**
-     * This function used to set the default input qty 1 when scan carton
-     * Also calculate default totalUnits and set it in state 
-     */
-    componentDidMount() {
     }
 
 
@@ -76,7 +62,7 @@ class PurchaseDetails extends Component {
 
         let purchaseObject = this.props.purchaseInfo;
 
-        let opacityEnabled = this.props.errorBox && (!this.props.errorBox.printError);
+        let opacityEnabled = (this.props.serviceDown || this.props.customerNotFound);
 
         return (
             <div className={"purchase-details-div " + (opacityEnabled ? 'opacity' : '')} >

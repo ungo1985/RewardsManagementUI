@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
-import { fetchCustomerAndPurchaseInfo, fetchSkuDetails } from '../../api/endpoints';
+import { fetchCustomerAndPurchaseInfo } from '../../api/endpoints';
 import Context from '../../components/contexts/Context';
 import Loading from '../../components/Loading';
 import BackNavigator from "../back-navigator/BackNavigator";
-import PrinterContext from '../contexts/PrinterContext';
-import Scan from '../scan/Scan';
 import ResponseHelper from '../Util/ResponseHelper.js';
-import { formatSkuBasicInfo, validateUserInput, validateCarton, getCartonCount, formatCustomerInfo, formatPurchaseInfo } from '../Util/util';
+import {  validateUserInput } from '../Util/util';
 import Header from './../header/Header';
 import SearchModal from './../search-modal/SearchModal';
-import SkuNotFound from './../sku-details/sku-not-found/SkuNotFound';
+import ErrorBanner from './../error-banner/ErrorBanner';
 import CustomerDetails from './../customer-details/CustomerDetails';
 import PurchaseDetails from './../purchase-details/PurchaseDetails';
 import SubHeader from './../sub-header/SubHeader';
 import {
-    SCAN, SKU, UPC, CARTON_UPC, OMS_ID, SEARCH_CARTON_UPC,
-    SEARCH_OMS_ID, SEARCH_UPC, SEARCH_SKU, ENTER_BUTTON, VIP_ID, RESOURCE_NOT_AVAILABLE_CODE, SERVICE_UNAVAILABLE_CODE
+    VIP_ID, RESOURCE_NOT_AVAILABLE_CODE
 } from '../../models/Constants';
 import './Inquiry.css';
+
 
 class Inquiry extends Component {
 
@@ -38,12 +36,7 @@ class Inquiry extends Component {
 
         this.setStateForModal = this.setStateForModal.bind(this);
         this.renderErrorMessage = this.renderErrorMessage.bind(this);
-        this.skuScanFxn = this.skuScanFxn.bind(this);
         this.setErrorFlag = this.setErrorFlag.bind(this);
-        this.printOnQtyEnterBtn = this.printOnQtyEnterBtn.bind(this);
-        this.handlePrintError = this.handlePrintError.bind(this);
-        this.handleLoading = this.handleLoading.bind(this)
-        this.resetItemQuantity = this.resetItemQuantity.bind(this);
     }
 
 
@@ -64,8 +57,7 @@ class Inquiry extends Component {
                 searchedInput: this.context.searchedInput,
                 customerId: this.context.customerId,
                 customerInfo: this.context.customerInfo,
-                purchaseInfo: this.context.purchaseInfo,
-                errorBox: this.context.errorBox
+                purchaseInfo: this.context.purchaseInfo
             });
 
         } else {
@@ -75,7 +67,6 @@ class Inquiry extends Component {
     }
 
     componentDidUpdate() {
-        Scan.getScans(this.skuScanFxn);
         this.renderErrorMessage();
     }
 
@@ -96,39 +87,34 @@ class Inquiry extends Component {
 
                 if(errorObject){
                     if(errorObject.code === RESOURCE_NOT_AVAILABLE_CODE){
-                        // To Store local Error Message in Context
-                        const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: true };
                         this.setState({
-                            errorBox: errorBox,
                             customerNotFound: true,
                             serviceDown: false,
                             isLoading: false
                         });
-                        this.context.setErrorBox(errorBox);
                         this.context.setSearchedInput(input);
+                        this.context.setCustomerNotFound(true);
                     }
                     else{
-                         // To Store local Error Message in Context
-                        const errorBox = { serviceDown: true, customerNotFound: this.state.customerNotFound };
                         this.setState({
-                            errorBox: errorBox,
                             customerNotFound: false,
                             serviceDown: true,
                             isLoading: false
                         });
-                        this.context.setErrorBox(errorBox);
                         this.context.setSearchedInput(input);
+                        this.context.setServiceDown(true);
                     }
                 }
                 else{
                     //clearing context
-                    console.log("clearing context");
+                    console.log("setting context in inquiry");
                     this.context.setSavedRecentSearches(custId);
                     this.context.setSearchedInput(custId);
                     this.context.setCustomerId(custId);
                     this.context.setCustomerInfo(customerObject);
                     this.context.setPurchaseInfo(purchaseObject);
-                    this.context.setErrorBox(null);
+                    this.context.setCustomerNotFound(false);
+                    this.context.setServiceDown(false);
 
                     this.setState(
                         {
@@ -137,7 +123,7 @@ class Inquiry extends Component {
                             customerInfo: customerObject,
                             purchaseInfo: purchaseObject,
                             serviceDown: false,
-                            errorBox: null
+                            customerNotFound: false
                         });
                 }
             }).catch(error => {
@@ -147,135 +133,16 @@ class Inquiry extends Component {
                 let errorResponse = response.errorResponse;
                 let helper = new ResponseHelper();
                 this.handleError(errorResponse, helper);
-                 this.setState({
-                    serviceDown: true,
-                    isLoading: false
-                });
             }
             catch (err) {
                 this.setState({
                     serviceDown: true,
+                    customerNotFound: false,
                     isLoading: false
                 });
             }
-
-            // To Store local Error Message in Context
-            const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: this.state.customerNotFound };
-            this.setState({
-                errorBox: errorBox,
-                isLoading: false
-            });
-            this.context.setErrorBox(errorBox);
-            this.context.setSearchedInput(input);
             });
         }
-        else{}
-    }
-
-
-    /** Reterive SKU Details
-     * Intialize all the context value when fetch call success
-     * Set Error Box values in Context when fetch call failed
-     * Turn off Default loading image
-     * @param  {} input
-     */
-    retreiveSKUDetails = (input) => {
-
-        var inputType = validateUserInput(input);
-        let isCartonSku = false;
-        
-        fetchSkuDetails(input, isCartonSku).then(data => {
-            let skuInformation = formatSkuBasicInfo(data);
-            let packSize = 0;
-            let cartonFailure = false;
-
-            this.context.setIsCarton(isCartonSku);
-            if (isCartonSku) {
-                packSize = getCartonCount(data);
-                if (packSize === 0) {
-                    packSize = 1; //defaulting to 1
-                    cartonFailure = true;
-                    console.log("ERROR GETTING CARTON COUNT FROM SERVICE");
-                }
-                this.context.setItemQuantity(1);
-                this.context.setTotalUnits(1 * packSize);
-                this.context.setCartonCount(packSize);
-            } else {
-                this.context.setItemQuantity("");
-            }
-
-            //clearing context
-            console.log("clearing context");
-            this.context.setSavedRecentSearches(data.searchInput);
-            this.context.setSkuBasicInfoBySkuStore(skuInformation);
-            this.context.setErrorBox(null);
-            //this.context.setSkuNbr(data.skuNbr);
-
-            this.setState(
-                {
-                    skuBasicInfo: skuInformation,
-                    //skuNbr: data.skuNbr,
-                    isLoading: false,
-                    isCarton: isCartonSku,
-                    cartonCount: packSize,
-                    cartonCountFailure: cartonFailure,
-                    serviceDown: false,
-                    errorBox: null
-                });
-
-
-        }).catch(error => {
-            console.log("ERROR FETCHING SKU DETAILS " + error.message);
-            try {
-                let response = JSON.parse(error.message);
-                let errorResponse = response.errorResponse;
-                let helper = new ResponseHelper();
-                this.handleError(errorResponse, helper);
-            }
-            catch (err) {
-                this.setState({
-                    serviceDown: true,
-                    isLoading: false
-                });
-            }
-
-
-            // To Store local Error Message in Context
-            const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: this.state.customerNotFound };
-            this.setState({
-                errorBox: errorBox,
-                isLoading: false
-            });
-            this.context.setErrorBox(errorBox);
-            this.context.setSearchedInput(input);
-       //     this.context.setItemQuantity("");
-        });
-    }
-
-
-    /** This is function used to set error message value in state from CrudComponent
-     */
-    handlePrintError() {
-        console.log("handlePrintError PRINT FAILED");
-        const errorBox = { printError: true };
-        this.setState({
-            printError: true,
-            errorBox: errorBox,
-            isLoading: false
-        });
-    }
-
-    handleLoading(value) {
-        this.setState({
-            isLoading: value
-        });
-    }
-
-    /** This is function used to set error message value in state from CrudComponent
-     */
-    resetItemQuantity() {
-        console.log("resetting item quantity");
-        this.context.setItemQuantity('');
     }
 
     /** This is function used to set error message value in state
@@ -286,12 +153,14 @@ class Inquiry extends Component {
         if ((errorResponse === "undefined" || errorResponse === null) || helper.servicedown(errorResponse)) {
             this.setState({
                 serviceDown: true,
+                customerNotFound: false,
                 isLoading: false
             });
         }
         else {
             this.setState({
                 customerNotFound: true,
+                serviceDown: false,
                 isLoading: false
             });
         }
@@ -312,11 +181,7 @@ class Inquiry extends Component {
 
 
     /**
-     * This function is used to set the Error flag for inlineError Message SKU Details
-     * and it is a callback function from skudetails component
-     * example :  'Four Digits or Less Only',
-                  'Enter Qty Before Printing',
-                  'Total Unit Count Cannot Exceed 999'
+     * This function is used to set the Error flag
      * @param  {} value
      * 
      */
@@ -324,138 +189,24 @@ class Inquiry extends Component {
         this.setState({ errorFlag: value })
     }
 
-    printOnQtyEnterBtn(val) {
-        if(val) {
-            if (this.context.selectedPrinter.length > 0) {
-                this.printComp.handlePrintLabelClicked(ENTER_BUTTON,"");
-            } else {
-                this.printComp.handleChangePrinterLinkClick();
-            }
-        }
-    }
-
-
-    /** This function called while doing scanning
-     * Use scan('161640') in console for mock scan
-     * @param  {} e
-     */
-    skuScanFxn = (e) => {
-        let scannedInput = e;
-        if (!scannedInput) {
-            return;
-        }
-        console.log("Inquiry scannedInput = " + scannedInput);
-        
-        //This check is needed in the case where the user is in Inquiry page with valid Qty
-        //And scans the next valid SKU, attempting to print current SKU
-        if ((this.context.selectedPrinter.length > 0) || (this.context.errorBox)) {
-            if(!this.state.errorBox){
-                this.printComp.handlePrintLabelClicked(SCAN,scannedInput);
-            } else {
-                //call fetch sku details
-                //TODO: Set itemQty default for cartonSku
-                this.retreiveSKUDetails(scannedInput);
-            }
-        } else {
-            let errorBox;
-            if(this.context.selectedPrinter.length === 0){
-                //printing failed, select a printer
-                errorBox = { serviceDown: false, customerNotFound: false, printError: false, isPrinterSelected: false };
-            } else {
-                errorBox = { serviceDown: false, customerNotFound: true, printError: false, isPrinterSelected: false };
-            }
-            this.setState({
-                errorBox: errorBox,
-                isLoading: false
-            });
-            this.context.setErrorBox(errorBox);
-        }
-    }
-
-
-   /* multiScanFetchSkudetails(scannedInput) {
-        
-        if (this.context.skuBasicInfoBySkuStore && this.context.skuBasicInfoBySkuStore.searchedInput === scannedInput) {
-            this.setState({
-                skuBasicInfo: this.context.skuBasicInfoBySkuStore,
-                isLoading: false,
-                errorBox: this.context.errorBox,
-                isCarton: this.context.isCarton,
-                cartonCount: this.context.cartonCount,
-
-            });
-            //If isCarton false, then set regular SKU itemQuantity to empty for next SKU
-            //Pivotal #171108803 and #171108450
-            if(!this.context.isCarton){
-                this.context.setItemQuantity("");
-            }
-            // Also Print the Labels
-        }
-        else {
-            this.setState({ isLoading: true });
-
-            //Call new fetch service
-            this.retreiveSKUDetails(scannedInput);
-        }
-        
-    }*/
-
     /**
      * This function is used to Show Error Box While Fetch Call Get the Error Message.
      * @param int searchedInput
      */
-    renderErrorMessage(searchedInput) {
-
-        if (this.state.errorBox && this.state.errorBox.serviceDown) {
-            return <SkuNotFound sku_nbr={searchedInput} message="SERVICE_DOWN"></SkuNotFound>
-        }
-        else if (this.state.errorBox && this.state.errorBox.customerNotFound) {
-            return <SkuNotFound sku_nbr={searchedInput} message="SKU_NOT_FOUND"></SkuNotFound>
-        }
-        else if (this.state.errorBox && this.state.errorBox.printError) {
-            return <SkuNotFound sku_nbr={searchedInput} message="PRINT_ERROR"></SkuNotFound>
-        }
-        else if (this.state.errorBox && this.state.selectedPrinter.length === 0) {
-            return <SkuNotFound sku_nbr={searchedInput} message="PRINTER_NOT_SELECTED"></SkuNotFound>
-        }
+    renderErrorMessage() {
+            if(this.context.serviceDown){ return (<ErrorBanner customerId={this.context.searchedInput} message="SERVICE_DOWN"></ErrorBanner>);}
+            else if(this.context.customerNotFound){
+            return (<ErrorBanner customerId={this.context.searchedInput} message="CUSTOMER_NOT_FOUND"></ErrorBanner>);
+            }
+        
     }
 
     /**
-     * This function is used to Show SKU Information also Set  and Get the ItemQuantity and Total Units from Context.
-     * @param  itemQuantity, setItemQuantity, int totalUnits, setTotalUnits
-     */
-   /* renderSkuDetails = (itemQuantity, setItemQuantity, totalUnits, setTotalUnits) => {
-        
-        if ((!this.state.errorBox) || (this.state.printError) || (!this.state.errorBox.isPrinterSelected)) {
-            let state = this.state;
-
-            // Loading Image while calling Fetch Service
-            if (this.state.isLoading) return <Loading />;
-
-            return (
-                // To Show SKUDetails Information
-                <SkuDetails skuBasicInfo={state.skuBasicInfo}
-                    inputQty={itemQuantity} setInputQty={setItemQuantity}
-                    totalUnits={totalUnits} setTotalUnits={setTotalUnits}
-                    errorFlag={state.errorFlag}
-                    errorBox={state.errorBox}
-                    resetErrorFlg={this.setErrorFlag}
-                    isCarton={state.isCarton}
-                    cartonCount={state.cartonCount}
-                    cartonCountFailure={state.cartonCountFailure} 
-                    handlePrintOnQtyEnterBtn={this.printOnQtyEnterBtn}>
-                </SkuDetails>
-                );
-        }  
-    }*/
-
-    /**
-     * This function is used to Show SKU Information also Set  and Get the ItemQuantity and Total Units from Context.
-     * @param  itemQuantity, setItemQuantity, int totalUnits, setTotalUnits
+     * This function is used to Show Customer Information
      */
    renderCustomerDetails = () => {
         
-        if ((!this.state.errorBox)) {
+        if ((!this.state.customerNotFound && !this.state.serviceDown)) {
             let state = this.state;
 
             // Loading Image while calling Fetch Service
@@ -465,7 +216,8 @@ class Inquiry extends Component {
                 // To Show CustomerDetails Information
                 <CustomerDetails customerInfo={state.customerInfo}
                     errorFlag={state.errorFlag}
-                    errorBox={state.errorBox}
+                    serviceDown={state.serviceDown}
+                    customerNotFound={state.customerNotFound}
                     resetErrorFlg={this.setErrorFlag}>
                 </CustomerDetails>
                 );
@@ -473,12 +225,11 @@ class Inquiry extends Component {
     }
 
    /**
-     * This function is used to Show SKU Information also Set  and Get the ItemQuantity and Total Units from Context.
-     * @param  itemQuantity, setItemQuantity, int totalUnits, setTotalUnits
+     * This function is used to Show Purchase Information
      */
    renderPurchaseDetails = () => {
         
-        if ((!this.state.errorBox)) {
+        if ((!this.state.customerNotFound && !this.state.serviceDown)) {
             let state = this.state;
 
             // Loading Image while calling Fetch Service
@@ -488,7 +239,8 @@ class Inquiry extends Component {
                 // To Show CustomerDetails Information
                 <PurchaseDetails purchaseInfo={state.purchaseInfo}
                     errorFlag={state.errorFlag}
-                    errorBox={state.errorBox}
+                    serviceDown={state.serviceDown}
+                    customerNotFound={state.customerNotFound}
                     resetErrorFlg={this.setErrorFlag}>
                 </PurchaseDetails>
                 );
@@ -501,7 +253,7 @@ class Inquiry extends Component {
                 {(context) => (
                             <div>
                                 <Header>
-                                    <BackNavigator {...this.props} setItemQuantity={context.setItemQuantity} />
+                                    <BackNavigator {...this.props} />
                                     <div className="headerTxt">Customer Info</div>
                                     <div>&nbsp;</div>
 
@@ -510,14 +262,14 @@ class Inquiry extends Component {
                                 <div className="inquiryPage" onClick={this.closeSkuDetailsImgModal} >
 
                                     <div className="inquiryBody">
-                                        {this.renderErrorMessage(context.searchedInput)}
+                                        {this.renderErrorMessage()}
                                         {this.renderCustomerDetails()}
                                          {this.renderPurchaseDetails()}
                                         <div className="clearDiv"></div>
 
                                     </div>
                                     {/* Search Modal */}
-                                    {this.state.showSearchModal && <SearchModal fetchSkuDetails={this.fetchSkuDetails(context.searchedInput, validateCarton(context.searchedInput))} setStateForModal={this.setStateForModal}></SearchModal>}
+                                    {this.state.showSearchModal && <SearchModal retreiveCustomerAndPurchaseInfo={this.retreiveCustomerAndPurchaseInfo(context.searchedInput)} setStateForModal={this.setStateForModal}></SearchModal>}
                                 </div>
                             </div>
                 )}

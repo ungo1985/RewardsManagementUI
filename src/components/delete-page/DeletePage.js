@@ -23,34 +23,23 @@ class DeletePage extends Component{
 
                             if(errorObject){
                                 if(errorObject.code === RESOURCE_NOT_AVAILABLE_CODE){
-                                    // To Store local Error Message in Context
-                                    const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: true };
                                     this.setState({
-                                        errorBox: errorBox,
                                         customerNotFound: true,
                                         serviceDown: false,
                                         isLoading: false
                                     });
-                                   // this.context.setErrorBox(errorBox);
-                                   // this.context.setSearchedInput(input);
                                 }
                                 else{
-                                     // To Store local Error Message in Context
-                                    const errorBox = { serviceDown: true, customerNotFound: this.state.customerNotFound };
                                     this.setState({
-                                        errorBox: errorBox,
                                         customerNotFound: false,
                                         serviceDown: true,
                                         isLoading: false
                                     });
-                                    //this.context.setErrorBox(errorBox);
-                                    //this.context.setSearchedInput(input);
                                 }
                             }
                             else{
                                 console.log("DeletePage Success");
                                 this.context.setSearchedInput("");
-                                this.context.setErrorBox(null);
 
                                 this.props.history.push({pathname: '/', state:{
                                     value: '',
@@ -76,15 +65,6 @@ class DeletePage extends Component{
                                 isLoading: false
                             });
                         }
-
-                        // To Store local Error Message in Context
-                        const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: this.state.customerNotFound };
-                        this.setState({
-                            errorBox: errorBox,
-                            isLoading: false
-                        });
-                       // this.context.setErrorBox(errorBox);
-                       // this.context.setSearchedInput(input);
                         });
     }
 

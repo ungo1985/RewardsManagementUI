@@ -23,7 +23,6 @@ class FormPage extends Component{
             serviceDown: false,
             customerNotFound: false,
             errorFlag: false,
-            errorBox: null,
             buttonCSS: 'button_disable',
             fromPage: ''
         }
@@ -107,7 +106,7 @@ class FormPage extends Component{
         if(this.validateFormInput()){
                     console.log("processCustomer: " + document.getElementById("firstName").value);
 
-                    let customerId = this.props.customerId;
+                    let customerId = "";
                     let firstName = document.getElementById("firstName").value;
                     let lastName = document.getElementById("lastName").value;
                     let streetAddress = document.getElementById("streetAddress").value;
@@ -117,11 +116,12 @@ class FormPage extends Component{
                     let birthday = document.getElementById("birthday").value;
                     let goldStatusFlag = "N";
                     let points = 0;
-
-                    if(this.props.customerInfo){
-                        goldStatusFlag = this.props.customerInfo.goldStatusFlag;
-                        points = this.props.customerInfo.points;
+                    if(this.context.customerInfo !== null){
+                        goldStatusFlag = this.context.customerInfo.goldStatusFlag;
+                        points = this.context.customerInfo.points;
+                        customerId = this.context.customerInfo.customerId;
                     }
+                        console.log("FormPage customerId: " + customerId);
                         postCustomer(customerId, firstName, lastName, streetAddress, city, state, zipCode, birthday, goldStatusFlag, points).then(data =>{
                             let customerObject = data.customerInfo;
                             let purchaseObject = data.purchaseInfo;
@@ -133,28 +133,19 @@ class FormPage extends Component{
 
                             if(errorObject){
                                 if(errorObject.code === RESOURCE_NOT_AVAILABLE_CODE){
-                                    // To Store local Error Message in Context
-                                    const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: true };
                                     this.setState({
-                                        errorBox: errorBox,
                                         customerNotFound: true,
                                         serviceDown: false,
                                         isLoading: false
                                     });
-                                   // this.context.setErrorBox(errorBox);
-                                   // this.context.setSearchedInput(input);
                                 }
                                 else{
                                      // To Store local Error Message in Context
-                                    const errorBox = { serviceDown: true, customerNotFound: this.state.customerNotFound };
                                     this.setState({
-                                        errorBox: errorBox,
                                         customerNotFound: false,
                                         serviceDown: true,
                                         isLoading: false
                                     });
-                                    //this.context.setErrorBox(errorBox);
-                                    //this.context.setSearchedInput(input);
                                 }
                             }
                             else{
@@ -162,7 +153,8 @@ class FormPage extends Component{
                                 this.context.setSearchedInput(data.customerId);
                                 this.context.setCustomerInfo(customerObject);
                                 this.context.setPurchaseInfo(purchaseObject);
-                                this.context.setErrorBox(null);
+                                this.context.setServiceDown(false);
+                                this.context.setCustomerNotFound(false);
 
                                 this.setState(
                                     {
@@ -170,7 +162,7 @@ class FormPage extends Component{
                                         customerId: data.customerId,
                                         customerInfo: customerObject,
                                         serviceDown: false,
-                                        errorBox: null
+                                        customerNotFound: false
                                     });
 
                                 this.props.history.push({pathname: '/inquiry', state:{
@@ -178,7 +170,9 @@ class FormPage extends Component{
                                     customerId: data.customerId,
                                     customerInfo: customerObject,
                                     purchaseInfo: purchaseObject,
-                                    isLoading: false
+                                    isLoading: false,
+                                    serviceDown: false,
+                                    customerNotFound: false
                                 }})
                             }
                         }).catch(error => {
@@ -199,15 +193,6 @@ class FormPage extends Component{
                                 isLoading: false
                             });
                         }
-
-                        // To Store local Error Message in Context
-                        const errorBox = { serviceDown: this.state.serviceDown, customerNotFound: this.state.customerNotFound };
-                        this.setState({
-                            errorBox: errorBox,
-                            isLoading: false
-                        });
-                       // this.context.setErrorBox(errorBox);
-                       // this.context.setSearchedInput(input);
                         });
         }
 

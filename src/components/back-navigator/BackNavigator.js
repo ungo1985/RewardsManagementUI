@@ -14,7 +14,6 @@ class BackNavigator extends Component{
     onBackClick() {
         console.log("back clicked!");
         this.props.history.replace({pathname: './'});
-        
     };
 
     render(){

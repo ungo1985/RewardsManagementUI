@@ -45,7 +45,7 @@ export default class SearchModal extends Component{
         return(
             <div>
                 <div className="searchModal">
-                    <SearchForm {...this.props} fetchSkuDetails={this.props.fetchSkuDetails} 
+                    <SearchForm {...this.props} retreiveCustomerAndPurchaseInfo={this.props.retreiveCustomerAndPurchaseInfo} 
                         setStateForModal={this.setStateForModal} searchInput={this.searchInput}/>
                 </div>
             </div>

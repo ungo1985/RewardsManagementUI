@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import './SearchForm.css';
 import backArrow from '../../images/backArrow.png';
 import Context from '../../components/contexts/Context';
-import {MANUAL_SEARCH} from '../../models/Constants';
-import { validateCarton, validateForAlphaNumericInput } from '../Util/util';
+import { validateForAlphaNumericInput } from '../Util/util';
 
 class SearchForm extends Component{
 
@@ -86,7 +85,7 @@ class SearchForm extends Component{
      *  this.validLength(123);
      */
     validLength(input) {
-        if (input.length == 7) {
+        if (input.length === 7) {
             return true;
         }
         return false;
@@ -126,7 +125,7 @@ class SearchForm extends Component{
             if(history.location.pathname === '/'){
                 history.push({pathname: './inquiry', state: {searchInput: value}});
             } else {
-                this.props.fetchSkuDetails(value, validateCarton(value))
+                this.props.retreiveCustomerAndPurchaseInfo(this.state.value);
             }
         }
     }
@@ -151,7 +150,7 @@ class SearchForm extends Component{
                 history.push({pathname: './inquiry', state: {searchInput: value}});
             }
             else{
-                this.props.fetchSkuDetails(value, validateCarton(value))
+                this.props.retreiveCustomerAndPurchaseInfo(this.state.value);
             }
         }
 

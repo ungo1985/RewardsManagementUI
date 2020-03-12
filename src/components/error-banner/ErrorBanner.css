@@ -1,26 +1,23 @@
-/**
- * Created by txs6533 on 6/22/18.
- */
-
-.skuNotFoundDiv{
+.customerNotFoundDiv{
     color: white;
     background-color: #ED1C24;
     height: 50px;
-    position: absolute;
+    /*position: absolute;*/
     top: 50px;
     width: 100%;
     display: block;
 }
 
-.skuNotFoundText{
-    width: 250px;
+.customerNotFoundText{
+    width: 500px;
     margin: 0 auto;
     font-size: 14px;
     margin-top: 9px;
     float: left;
+    text-align: center;
 }
 
-.skuNotFoundCloseBtn{
+.customerNotFoundCloseBtn{
     float: left;
     width: 30px;
     margin-top: 17px;
@@ -28,12 +25,12 @@
     font-size: 18px;
 }
 
-.skuNotFoundIconDiv{
+.customerNotFoundIconDiv{
     float: left;
     width: 50px;
 }
 
-.skuNotFoundIcon{
+.customerNotFoundIcon{
     width: 30px;
     height: 30px;
     margin-left: 10px;

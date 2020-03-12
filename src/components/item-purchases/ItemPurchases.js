@@ -5,14 +5,6 @@ import './Collapsible.css';
 
 export default class ItemPurchases extends Component {
 
-    /**
-     * returns true to enable the chevron if the children is available else false to disable
-     * @returns {boolean}
-     */
-    constructor(props){
-        super(props);
-    }
-
     setStateForPropChange = () => {
         let isDisabled = false;
         let children = this.props.children;
