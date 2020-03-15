@@ -1,0 +1,40 @@
+.loyalty-page{
+    top: 0;
+}
+
+headerTxt{
+    float: left;
+    width: 30%;
+    text-align: center;
+    font-size: 18px
+
+}
+
+.loyalty_label {
+    font-weight: bold;
+    font-size: 16px;
+    padding-left: 5%;
+    margin-bottom: 5px;
+    margin-top: 30px;
+}
+
+.loyalty-button{
+    font-size: 20px;
+    border: 1px #CCCCCC;
+    background-color: #F9F9F9;
+    margin-left: 5%;
+    margin-top: 3%;
+}
+
+.button_enable{
+	color: #F96302;
+}
+
+.line{
+        margin-top: 3%;
+        margin-left: 5%;
+        border: 1px solid black;
+        width: 50%;
+        height: 30%;
+
+}
