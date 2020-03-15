@@ -4,7 +4,7 @@ import rewardsImage from './../../images/Rewards.PNG'
 import Header from './../header/Header'
 import SearchModal from "./../search-modal/SearchModal"
 import Context from '../../components/contexts/Context'
-import { HOME_PAGE_LABEL, ADD_CUSTOMER} from '../../models/Constants';
+import { HOME_PAGE_LABEL, ADD_CUSTOMER, DAILY_PURCHASE_REPORT} from '../../models/Constants';
 import { Link } from 'react-router-dom';
 
 class HomePage extends Component{
@@ -60,9 +60,16 @@ class HomePage extends Component{
                         <div className={"label " + (this.state.showSearchModal ? 'hide': '')} id="label">{HOME_PAGE_LABEL}</div>
                         <div className={"search-text-box "+(this.state.showSearchModal ? 'hide': '')} onClick={() => {this.setStateForModal(true)}}></div>
                         {this.renderSearchModal(this.state.showSearchModal)}
-                        <Link to="/form">
-                            <button type="button" className="button btnContainer">{ADD_CUSTOMER}</button>
-                        </Link>
+                        <div>
+                            <Link to="/dailyReport">
+                                <button type="button" className="button btnContainer reportButton">{DAILY_PURCHASE_REPORT}</button>
+                            </Link>
+                        </div>
+                        <div>
+                            <Link to="/form">
+                                <button type="button" className="button btnContainer addCustomerButton">{ADD_CUSTOMER}</button>
+                            </Link>
+                        </div>
                     </div>
                 )}
                 </Context.Consumer>
