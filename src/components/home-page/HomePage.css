@@ -79,7 +79,6 @@
 
 .btnContainer {
     line-height: 38px;
-    width: calc(100% - 2px); 
     font-size: 20px; 
 }
 
@@ -89,6 +88,15 @@
     text-decoration: solid;
     background-color: #f96302;
     border: 1px solid #f96302;
-    position: absolute;
     bottom: 10px;
+}
+
+.addCustomerButton{
+    position: absolute;
+    width: 100%;
+}
+
+.reportButton{
+    margin-top: 30px;
+    margin-left: 43%;
 }

@@ -14,7 +14,7 @@ export default class ItemPurchases extends Component {
        return isDisabled;
     }
 
-    updateCollapsibleOpenList(collapsibleOpenList, id, value) {
+   /* updateCollapsibleOpenList(collapsibleOpenList, id, value) {
         let newRecord = {[id]:value};
         let isCollapsibleObjectExist = collapsibleOpenList.some( (obj) => {
             if ( id in obj ) {
@@ -42,7 +42,7 @@ export default class ItemPurchases extends Component {
 
        // Update CollapsibleList
        this.updateCollapsibleOpenList(this.props.collapsibleOpenList, this.props.id , false);    
-    }
+    }*/
 
     /**
      * This function takes the first word from otherLocationTitle and returns it for ID purposes

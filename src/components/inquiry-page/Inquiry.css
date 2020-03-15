@@ -26,9 +26,10 @@
     font-family: 'Open Sans', sans-serif;
 }
 .inquiryBody{
-    height: 535px;
+    height: 800px;
     overflow: auto;
     margin-top:0px;
+    background-color: white;
 }
 
 .headerTxt{

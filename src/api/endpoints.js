@@ -112,3 +112,36 @@ export async function deleteCustomer(vipId) {
     console.timeEnd('deleteCustomer');
     return json;
 } 
+
+/* This function is used to make the call to RewardsManagementService to obtain daily purchase info
+ * @method  fetchDailyPurchaseReport *
+ * @returns  {response object}*/
+export async function fetchDailyPurchaseReport() {
+    console.time('fetchDailyPurchaseReport');
+    const endpoint = '/rws/genereateDailyPurchaseReport';
+    const domain = REWARDS_MANAGEMENT_DOMAIN;
+
+    // Building URL
+    var url = domain + endpoint;
+    
+    const response = await fetch(url, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .catch(function (error) {
+            console.log("ERROR in RewardsManagementService: " + error);
+        })
+
+    try{
+        const json = await response.json();
+        console.timeEnd('fetchDailyPurchaseReport');
+        return json;
+    }
+    catch(error){
+        console.log("ERROR in fetchDailyPurchaseReport method: " + error);
+        let errorJson = {customerId:'', customerInfo:{ customerId: '', firstName: null}, purchaseInfo:{ customerId: '', purchasedItems: []},  errorResponse:{ code: 503, message: "SERVICE UNAVAILABLE"}};
+        return errorJson;
+    }
+}

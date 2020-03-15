@@ -6,7 +6,6 @@ import BackNavigator from "../back-navigator/BackNavigator";
 import ResponseHelper from '../Util/ResponseHelper.js';
 import {  validateUserInput } from '../Util/util';
 import Header from './../header/Header';
-import SearchModal from './../search-modal/SearchModal';
 import ErrorBanner from './../error-banner/ErrorBanner';
 import CustomerDetails from './../customer-details/CustomerDetails';
 import PurchaseDetails from './../purchase-details/PurchaseDetails';
@@ -30,8 +29,7 @@ class Inquiry extends Component {
             showSearchModal: false,
             serviceDown: false,
             customerNotFound: false,
-            errorFlag: false,
-            errorBox: null
+            errorFlag: false
         }
 
         this.setStateForModal = this.setStateForModal.bind(this);
@@ -191,7 +189,6 @@ class Inquiry extends Component {
 
     /**
      * This function is used to Show Error Box While Fetch Call Get the Error Message.
-     * @param int searchedInput
      */
     renderErrorMessage() {
             if(this.context.serviceDown){ return (<ErrorBanner customerId={this.context.searchedInput} message="SERVICE_DOWN"></ErrorBanner>);}
@@ -236,7 +233,7 @@ class Inquiry extends Component {
             if (this.state.isLoading) return <Loading />;
 
             return (
-                // To Show CustomerDetails Information
+                // To Show PurchaseDetails Information
                 <PurchaseDetails purchaseInfo={state.purchaseInfo}
                     errorFlag={state.errorFlag}
                     serviceDown={state.serviceDown}
@@ -268,8 +265,6 @@ class Inquiry extends Component {
                                         <div className="clearDiv"></div>
 
                                     </div>
-                                    {/* Search Modal */}
-                                    {this.state.showSearchModal && <SearchModal retreiveCustomerAndPurchaseInfo={this.retreiveCustomerAndPurchaseInfo(context.searchedInput)} setStateForModal={this.setStateForModal}></SearchModal>}
                                 </div>
                             </div>
                 )}
