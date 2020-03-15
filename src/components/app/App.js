@@ -7,6 +7,7 @@ import { manageRecentSearchList } from '../Util/util';
 import FormPage from '../form-page/FormPage';
 import DeletePage from '../delete-page/DeletePage';
 import DailyReport from '../daily-report/DailyReport';
+import LoyaltyPage from '../loyalty-page/LoyaltyPage';
 
 class App extends Component {
     constructor(props) {
@@ -113,6 +114,7 @@ class App extends Component {
                                 <Route path='/form' render={props => <FormPage {...props}/>} />
                                 <Route path='/delete' render={props => <DeletePage {...props}/>} />
                                 <Route path='/dailyReport' render={props => <DailyReport {...props}/>} />
+                                <Route path='/loyalty' render={props => <LoyaltyPage {...props}/>} />
                             </Switch>
                     </Router>
                 </div>

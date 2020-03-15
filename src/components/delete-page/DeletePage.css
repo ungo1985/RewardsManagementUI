@@ -25,3 +25,11 @@
 .button_enable{
 	color: #F96302;
 }
+
+headerTxt{
+    float: left;
+    width: 30%;
+    text-align: center;
+    font-size: 18px
+
+}

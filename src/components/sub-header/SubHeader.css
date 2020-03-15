@@ -11,7 +11,7 @@
 
 
 .sku-number-sub-header {
-	width: 90%;
+	width: 84%;
 	font-weight: bold;
 	font-size: 20px;
 	float: left;
@@ -42,5 +42,12 @@
 	width: 3%;
 	height: auto;
 	margin: 5px 20px 5px 0px;
+	float: left;
+ }
+
+  .loyalty-card img{
+	width: 3%;
+	height: auto;
+	margin: 10px 20px 5px 0px;
 	float: left;
  }
