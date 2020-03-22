@@ -51,7 +51,7 @@
 
 #rewards-image{
     display: block;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
     width: 20%;
@@ -88,15 +88,20 @@
     text-decoration: solid;
     background-color: #f96302;
     border: 1px solid #f96302;
-    bottom: 10px;
 }
 
 .addCustomerButton{
     position: absolute;
-    width: 100%;
+    width: 80%;
+    margin-top: 2px;
+    margin-left: 10%;
+    border-radius: 10px;
 }
 
 .reportButton{
     margin-top: 30px;
-    margin-left: 43%;
+    margin-left: 10%;
+    margin-bottom: 4%;
+    width: 80%;
+    border-radius: 10px;
 }

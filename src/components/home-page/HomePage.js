@@ -62,12 +62,12 @@ class HomePage extends Component{
                         {this.renderSearchModal(this.state.showSearchModal)}
                         <div>
                             <Link to="/dailyReport">
-                                <button type="button" className="button btnContainer reportButton">{DAILY_PURCHASE_REPORT}</button>
+                                <button type="button" className={"button btnContainer reportButton "+(this.state.showSearchModal ? 'hide': '')}>{DAILY_PURCHASE_REPORT}</button>
                             </Link>
                         </div>
                         <div>
                             <Link to="/form">
-                                <button type="button" className="button btnContainer addCustomerButton">{ADD_CUSTOMER}</button>
+                                <button type="button" className={"button btnContainer addCustomerButton "+(this.state.showSearchModal ? 'hide': '')}>{ADD_CUSTOMER}</button>
                             </Link>
                         </div>
                     </div>
