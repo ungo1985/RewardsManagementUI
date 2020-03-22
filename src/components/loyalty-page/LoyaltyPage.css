@@ -38,3 +38,12 @@ headerTxt{
         height: 30%;
 
 }
+
+.rewards-label{
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    margin-left: 5%;
+    text-decoration: underline;
+}
