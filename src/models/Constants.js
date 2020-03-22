@@ -14,6 +14,7 @@ export const APP_VERSION_FILE = "./version/version.txt";
 
 export const RECENT_SEARCH_THRESHOLD = 10;
 export const MONTHLY_POINT_THRESHOLD = 50;
+export const GOLD_STATUS = "Y";
 
 export const BROWSER = "BROWSER";
 export const MOBILE = "MOBILE";

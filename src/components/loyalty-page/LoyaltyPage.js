@@ -4,14 +4,26 @@ import Header from './../header/Header';
 import { Link } from 'react-router-dom';
 import BackNavigator from "../back-navigator/BackNavigator";
 import Context from '../../components/contexts/Context';
-import { CUSTOMER_REWARDS, MONTHLY_POINT_THRESHOLD } from '../../models/Constants';
+import { CUSTOMER_REWARDS, MONTHLY_POINT_THRESHOLD, GOLD_STATUS } from '../../models/Constants';
 
 class LoyaltyPage extends Component{
 
     renderRewards = () =>{
         let custInfo = this.context.customerInfo;
         if(custInfo && custInfo.monthlyPoints && custInfo.monthlyPoints > MONTHLY_POINT_THRESHOLD){
-            return <div className="loyalty_label">This customer is entitled to one free ice cream or yogurt for this month</div>
+            return <div className="loyalty_label">Customer has {custInfo.monthlyPoints} points for this month and is entitled to one free ice cream or yogurt for this month</div>
+        }
+        else if(custInfo && custInfo.goldStatusFlag && custInfo.goldStatusFlag === GOLD_STATUS){
+            let pts = 0;
+            if(custInfo.monthlyPoints){pts = custInfo.monthlyPoints;}
+            return (
+                <div className="loyalty_label">
+                    Customer has {pts} points for this month <br/>
+                    This customer is entitled to one free ice cream or yogurt for this month for being a gold status customer<br/>
+                    Can buy items at 10% discount <br/>
+                    Accrues double points for each purchase <br/>
+                </div>
+            )
         }
         else{return <div></div>}
     }
