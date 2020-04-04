@@ -21,30 +21,30 @@ function getCustomerDetails(customerInfo) {
 describe('CustomerDetails', () => {
     it('renders without crashing', () => {                      // our first test
         const { container } = render(                           // render our component under test
-        	getCustomerDetails(customerInfo, jest.fn(), jest.fn())
+        	getCustomerDetails(customerInfo)
         )
         expect(container).toBeTruthy()                          // if we get this far then the component was rendered
     })
     it('renders the Name', () => {                        // our second test
-        render(getCustomerDetails(customerInfo, jest.fn(), jest.fn()))
+        render(getCustomerDetails(customerInfo))
         screen.getByTestId("customerName")                      // finds the DOM node with the specified text,
                                                                 // waits up to 4.5 seconds and if not found will
                                                                 // throw an exception
     })
     it('renders the Street Address', () => {                        
-        render(getCustomerDetails(customerInfo, jest.fn(), jest.fn()))
+        render(getCustomerDetails(customerInfo))
         screen.getByTestId("streetAddress")                      
     })
     it('renders birthday', () => {                        
-        render(getCustomerDetails(customerInfo, jest.fn(), jest.fn()))
+        render(getCustomerDetails(customerInfo))
         screen.getByTestId("birthday")                      
     })
     it('renders points', () => {                        
-        render(getCustomerDetails(customerInfo, jest.fn(), jest.fn()))
+        render(getCustomerDetails(customerInfo))
         screen.getByTestId("points")                      
     })
     it('renders gold status flag', () => {                        
-        render(getCustomerDetails(customerInfo, jest.fn(), jest.fn()))
+        render(getCustomerDetails(customerInfo))
         screen.getByTestId("goldStatusFlag")                      
     })
 })
