@@ -2,19 +2,15 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom/extend-expect';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import '@testing-library/jest-dom/extend-expect'
+import { cleanup } from '@testing-library/react'
+//import configureMockAxios from './mock-utils/configureMockAxios'
+//import dataSet from './mock-utils/dataSet1'
 
-Enzyme.configure({ adapter: new Adapter() });
-global.fetch = require('jest-fetch-mock')
+global.sleep = millis => new Promise(res => setTimeout(res, millis))
 
-
-global.mockWindowObject = (dataUrl) => {
-    Object.defineProperty(window, 'location', {
-        value: {
-          href: dataUrl
-        },
-        writable: true
-    });
-};
+beforeAll(() => {
+    //configureMockAxios(dataSet)
+})
+beforeEach(() => {})
+afterEach(cleanup)

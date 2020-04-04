@@ -22,11 +22,11 @@ class CustomerDetails extends Component {
             <div className={"customer-details-div " + (opacityEnabled ? 'opacity' : '')} >
 
                 <div>
-                <span className="sku-number">Name: </span><div className="sku-details-desc">{custInfo.firstName} {custInfo.lastName}</div>
-                <span className="sku-number">Address: </span><div className="sku-details-desc">{custInfo.streetAddress} <br/> {custInfo.city} {custInfo.state} {custInfo.zipCode}</div>
-                <span className="sku-number">Birthday: </span><div className="sku-details-desc">{custInfo.birthday}</div>
-                <span className="sku-number">Points: </span><div className="sku-details-desc">{custInfo.points}</div>
-                <span className="sku-number">Gold Status: </span><div className="sku-details-desc">{custInfo.goldStatusFlag}</div>
+                <span className="sku-number">Name: </span><div className="sku-details-desc" data-testid="customerName">{custInfo.firstName} {custInfo.lastName}</div>
+                <span className="sku-number">Address: </span><div className="sku-details-desc" data-testid="streetAddress">{custInfo.streetAddress} <br/> {custInfo.city} {custInfo.state} {custInfo.zipCode}</div>
+                <span className="sku-number">Birthday: </span><div className="sku-details-desc" data-testid="birthday">{custInfo.birthday}</div>
+                <span className="sku-number">Points: </span><div className="sku-details-desc" data-testid="points">{custInfo.points}</div>
+                <span className="sku-number">Gold Status: </span><div className="sku-details-desc" data-testid="goldStatusFlag">{custInfo.goldStatusFlag}</div>
                 </div>
 
             </div>
