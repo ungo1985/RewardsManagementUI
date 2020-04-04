@@ -24,10 +24,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject",
-    "jest-coverage": "jest --coverage",
-    "test-coverage": "node scripts/test.js --env=jsdom --coverage --runInBand --verbose"
+    "ci-test": "react-scripts test --verbose",
+    "coverage": "react-scripts test --verbose --coverage"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.1.1",

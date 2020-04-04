@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, {Component} from 'react';
 import Collapsible from 'react-collapsible';
 import './Collapsible.css';
@@ -13,36 +12,6 @@ export default class ItemPurchases extends Component {
         }
        return isDisabled;
     }
-
-   /* updateCollapsibleOpenList(collapsibleOpenList, id, value) {
-        let newRecord = {[id]:value};
-        let isCollapsibleObjectExist = collapsibleOpenList.some( (obj) => {
-            if ( id in obj ) {
-                 obj[id] = value;
-                 return true;   
-            }
-          });
-          
-          if(!isCollapsibleObjectExist) {
-            collapsibleOpenList.push(newRecord);
-          }
-
-          
-      }
-      
-
-    setStateForOpen = () => {
-
-        // Update CollapsibleList
-        this.updateCollapsibleOpenList(this.props.collapsibleOpenList , this.props.id, true);
-
-    }
-    
-    setStateForClosed = () => {
-
-       // Update CollapsibleList
-       this.updateCollapsibleOpenList(this.props.collapsibleOpenList, this.props.id , false);    
-    }*/
 
     /**
      * This function takes the first word from otherLocationTitle and returns it for ID purposes
@@ -76,8 +45,7 @@ export default class ItemPurchases extends Component {
     render() {
         return (
             <div id={this.props.id}>
-                <Collapsible trigger={this.props.purchasesTitle} triggerDisabled={this.setStateForPropChange()} open={this.props.isOpen}
-                             /*onOpen={this.focus} onOpening={this.setStateForOpen} onClosing={this.setStateForClosed}*/ transitionTime={100}>
+                <Collapsible trigger={this.props.purchasesTitle} triggerDisabled={this.setStateForPropChange()} open={this.props.isOpen} transitionTime={100}>
                 <div id={this.getCollapsibleId()}>{this.props.children}</div>
                 </Collapsible>
             </div>
