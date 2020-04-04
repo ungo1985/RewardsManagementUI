@@ -8,7 +8,7 @@ import dataSet from '../../mock-utils/MockCustomerDetails'         // we will us
 const customerInfo = dataSet.customerInfo                     // the product data for our component under test 
 
 /**
- * Define a function that creates and returns an instance of the Product component.
+ * Define a function that creates and returns an instance of the CustomerDetails component.
  * I usually define this function to take the same props as the component under test,
  * thus giving complete control over how the component is constructed.
  */

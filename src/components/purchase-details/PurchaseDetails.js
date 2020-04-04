@@ -22,11 +22,11 @@ class PurchaseDetails extends Component {
     renderPurchases = (purchaseInfo) => {
             return (purchaseInfo) ? (
                     <React.Fragment> <div className="purchase-titles">
-                                        <span className="item-title">Item</span>
-                                        <span className="price-title">Price</span>
-                                        <span className="type-title">Type</span>
-                                        <span className="purchased-date-title">Purchased Date</span>
-                                        <span className="pre-orderd-title">PreOrdered?</span>
+                                        <span className="item-title" data-testid="item-title">Item</span>
+                                        <span className="price-title" data-testid="price-title">Price</span>
+                                        <span className="type-title" data-testid="type-title">Type</span>
+                                        <span className="purchased-date-title" data-testid="purchased-date-title">Purchased Date</span>
+                                        <span className="pre-ordered-title" data-testid="pre-ordered-title">PreOrdered?</span>
                                     </div>
                         {this.framePurchases(purchaseInfo) } </React.Fragment>): null;
     }
@@ -47,11 +47,11 @@ class PurchaseDetails extends Component {
                 type = purchaseInfo.purchasedItems[index].type, purchasedDate = purchaseInfo.purchasedItems[index].purchasedDate,
                 preOrderedFlag = purchaseInfo.purchasedItems[index].preOrderedFlag;
                 return (<div key={index} id={'overheadLocations' + index} className="overhead-locations">
-                    <span className="aisleBay">{availableItem}</span>
-                    <span className="quantity">{price}</span>
-                    <span className="tagID">{type}</span>
-                    <span className="tagID">{purchasedDate}</span>
-                    <span className="tagID">{preOrderedFlag}</span>
+                    <span data-testid={'availableItem'+index}>{availableItem}</span>
+                    <span data-testid={'price'+index}>{price}</span>
+                    <span data-testid={'type'+index}>{type}</span>
+                    <span data-testid={'purchasedDate'+index}>{purchasedDate}</span>
+                    <span data-testid={'preOrderedFlag'+index}>{preOrderedFlag}</span>
                 </div>);
             });
         
@@ -65,7 +65,7 @@ class PurchaseDetails extends Component {
         let opacityEnabled = (this.props.serviceDown || this.props.customerNotFound);
 
         return (
-            <div className={"purchase-details-div " + (opacityEnabled ? 'opacity' : '')} >
+            <div className={"purchase-details-div " + (opacityEnabled ? 'opacity' : '')} data-testid="CustomerPurchases">
 
                     <ItemPurchases purchasesTitle="Customer Purchases" isOpen={false} id="CustomerPurchases">
                         {this.renderPurchases(purchaseObject)}
