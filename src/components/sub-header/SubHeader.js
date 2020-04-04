@@ -13,11 +13,11 @@ class SubHeader extends Component {
         return (
         <Context.Consumer>
         {(context) => (
-            <div className="sku-div-header">
-                <div className="sku-div-child">
-                    <span className="sku-number-sub-header">{this.props.customerId}</span>
+            <div className="customer-div-header">
+                <div className="customer-div-child">
+                    <span className="cust-id-sub-header" data-testid="custIdSubHeader">{this.props.customerId}</span>
                 </div>
-                <div className="sku-div-child">
+                <div className="customer-div-child">
                        <Link to={{
                             pathname: '/form', state: {
                                     searchInput: this.context.searchedInput,
@@ -25,17 +25,17 @@ class SubHeader extends Component {
                                     customerInfo: this.context.customerInfo
                             }
                         }}>
-                             <span className="edit-customer"><img src={editIcon}  alt="Edit Customer"/></span>
+                             <span className="edit-customer" data-testid="editIcon"><img src={editIcon}  alt="Edit Customer"/></span>
                         </Link>
                 </div>
-                <div className="sku-div-child">
+                <div className="customer-div-child">
                         <Link to="/delete">
-                        <span className="delete-customer"><img src={deleteIcon}  alt="Delete Customer"/></span>
+                        <span className="delete-customer" data-testid="deleteIcon"><img src={deleteIcon}  alt="Delete Customer"/></span>
                         </Link>
                 </div>
-                <div className="sku-div-child">
+                <div className="customer-div-child">
                         <Link to="/loyalty">
-                             <span className="loyalty-card"><img src={barcodeIcon}  alt="Loyalty Card"/></span>
+                             <span className="loyalty-card" data-testid="loyaltyIcon"><img src={barcodeIcon}  alt="Loyalty Card"/></span>
                         </Link>
                 </div>
             </div>

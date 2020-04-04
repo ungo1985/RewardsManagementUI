@@ -1,4 +1,4 @@
-.sku-div-header {
+.customer-div-header {
 	width: 100%;
 	height: 80px;
 	text-align: center;
@@ -10,7 +10,7 @@
 }
 
 
-.sku-number-sub-header {
+.cust-id-sub-header {
 	width: 84%;
 	font-weight: bold;
 	font-size: 20px;
