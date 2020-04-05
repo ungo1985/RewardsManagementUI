@@ -13,18 +13,14 @@ class HomePage extends Component{
         super(props)
         this.state = {
             value: '',
-            showSearchModal: false,
-            fromPage: ''
+            showSearchModal: false
         }
         this.renderSearchModal = this.renderSearchModal.bind(this);
         this.setStateForModal = this.setStateForModal.bind(this);
     }
 
     componentDidMount() {
-        this.setState({
-            fromPage:this.props.location.pathname
-        });
-                //resetting context
+         //resetting context
          this.context.setSearchedInput("");
          this.context.setCustomerInfo(null);
          this.context.setPurchaseInfo(null);
@@ -53,20 +49,20 @@ class HomePage extends Component{
                 <Context.Consumer>
                 {(context) => (
                     <div className="homePage">
-                        <Header headerTextClassName="titleTxt" id="titleTxt" data-testid="titleTxt">Rewards Management System</Header>
+                        <div data-testid="titleTxt"><Header headerTextClassName="titleTxt" id="titleTxt">Rewards Management System</Header></div>
                         <div id="rewards-image">
-                            <div className="rewards-image"><img src={rewardsImage} alt="rewards"/></div>
+                            <div className="rewards-image" data-testid="rewardsImage"><img src={rewardsImage} alt="rewards"/></div>
                         </div>
-                        <div className={"label " + (this.state.showSearchModal ? 'hide': '')} id="label">{HOME_PAGE_LABEL}</div>
-                        <div className={"search-text-box "+(this.state.showSearchModal ? 'hide': '')} onClick={() => {this.setStateForModal(true)}}></div>
+                        <div className={"label " + (this.state.showSearchModal ? 'hide': '')} id="label" data-testid="homepageLabel">{HOME_PAGE_LABEL}</div>
+                        <div data-testid="searchBox" className={"search-text-box "+(this.state.showSearchModal ? 'hide': '')} onClick={() => {this.setStateForModal(true)}}></div>
                         {this.renderSearchModal(this.state.showSearchModal)}
                         <div>
-                            <Link to="/dailyReport">
+                            <Link to="/dailyReport" data-testid="dailyReportButton">
                                 <button type="button" className={"button btnContainer reportButton "+(this.state.showSearchModal ? 'hide': '')}>{DAILY_PURCHASE_REPORT}</button>
                             </Link>
                         </div>
                         <div>
-                            <Link to="/form">
+                            <Link to="/form" data-testid="addCustomerButton">
                                 <button type="button" className={"button btnContainer addCustomerButton "+(this.state.showSearchModal ? 'hide': '')}>{ADD_CUSTOMER}</button>
                             </Link>
                         </div>
