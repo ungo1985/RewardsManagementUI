@@ -162,14 +162,14 @@ class SearchForm extends Component{
 	        {({ setSearchedInput }) => (
 		        <div>
 		            <div className="searchboxDiv">
-		                <img src={backArrow} alt="" className="back-arrow" onClick={this.onBackFxn}/>
-		                <div className="searchTextboxDiv">
-		                    <input id="searchTextbox" type="text" className="searchTextbox"
+		                <div data-testid="backArrow"><img src={backArrow} alt="" className="back-arrow" onClick={this.onBackFxn}/></div>
+		                <div className="searchTextboxDiv" data-testid="searchTextboxDiv">
+		                    <input id="searchTextbox" type="text" className="searchTextbox" data-testid="searchTextbox"
 		                        onChange={this.handleValueChange}  onKeyDown={this.enterInput}/>
 		                </div>
-                        <button id="button_search" className={this.state.buttonCSS + " button_search"} 
-                            onClick={this.searchAfterClick} /*onFocus={this.searchAfterClick}*/ 
-                            onMouseUp={() => setSearchedInput(this.state.value)} >Search</button>
+                        <div data-testid="searchButton"><button id="button_search" className={this.state.buttonCSS + " button_search"} 
+                            onClick={this.searchAfterClick} 
+                            onMouseUp={() => setSearchedInput(this.state.value)} >Search</button></div>
 		            </div>
 		        </div>
 	        )}
