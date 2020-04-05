@@ -53,7 +53,7 @@ class HomePage extends Component{
                 <Context.Consumer>
                 {(context) => (
                     <div className="homePage">
-                        <Header headerTextClassName="titleTxt" id="titleTxt">Rewards Management System</Header>
+                        <Header headerTextClassName="titleTxt" id="titleTxt" data-testid="titleTxt">Rewards Management System</Header>
                         <div id="rewards-image">
                             <div className="rewards-image"><img src={rewardsImage} alt="rewards"/></div>
                         </div>
