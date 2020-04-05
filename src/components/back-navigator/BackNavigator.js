@@ -19,9 +19,9 @@ class BackNavigator extends Component{
     render(){
         return(
           <div>
-              <div className="backTemp" onClick={this.onBackClick}>
+              <div className="backTemp" data-testid="backNavLink" onClick={this.onBackClick}>
                   <img className='backBtn' src={backBtn} alt="back-button"/>
-                  <div className="backBtnTxt">Homepage</div>
+                  <div className="backBtnTxt" data-testid="backNavTitle">Homepage</div>
               </div>
           </div>
         );
