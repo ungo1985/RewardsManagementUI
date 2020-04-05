@@ -16,8 +16,8 @@
     "npm": "^6.13.6",
     "react-collapsible": "^2.6.2",
     "react-ga": "^2.7.0",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.0",
+    "react-router": "5.1.2",
+    "react-router-dom": "5.1.2",
     "watchman": "^1.0.0",
     "whatwg-fetch": "^3.0.0"
   },

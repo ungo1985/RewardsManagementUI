@@ -18,7 +18,7 @@ class SubHeader extends Component {
                     <span className="cust-id-sub-header" data-testid="custIdSubHeader">{this.props.customerId}</span>
                 </div>
                 <div className="customer-div-child">
-                       <Link to={{
+                       <Link data-testid="editLink" to={{
                             pathname: '/form', state: {
                                     searchInput: this.context.searchedInput,
                                     customerId: this.context.customerId,
@@ -29,12 +29,12 @@ class SubHeader extends Component {
                         </Link>
                 </div>
                 <div className="customer-div-child">
-                        <Link to="/delete">
+                        <Link data-testid="deleteLink" to="/delete">
                         <span className="delete-customer" data-testid="deleteIcon"><img src={deleteIcon}  alt="Delete Customer"/></span>
                         </Link>
                 </div>
                 <div className="customer-div-child">
-                        <Link to="/loyalty">
+                        <Link data-testid="loyaltyLink" to="/loyalty">
                              <span className="loyalty-card" data-testid="loyaltyIcon"><img src={barcodeIcon}  alt="Loyalty Card"/></span>
                         </Link>
                 </div>
