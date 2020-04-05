@@ -53,4 +53,22 @@ describe('SubHeader', () => {
         render(getSubHeader(customerId, history))
         screen.getByTestId("loyaltyIcon")                      
     })
+    it('renders edit page when edit icon has been clicked', async () => {                        
+    	const { container } = render(getSubHeader(customerId, history))
+        const editButton = await screen.getByTestId("editLink") //needs await bc of var assignment
+        userEvent.click(editButton) // click the link to change route
+        screen.findByText('Customer Form')             // verify that the form route is loaded
+    })
+    it('renders delete page when delete icon has been clicked', async () => {                        
+    	const { container } = render(getSubHeader(customerId, history))
+        const deleteButton = await screen.getByTestId("deleteLink") //needs await bc of var assignment
+        userEvent.click(deleteButton) // click the link to change route
+        screen.findByText('Delete Customer')             // verify that the delete route is loaded
+    })
+    it('renders loyalty page when loyalty icon has been clicked', async () => {                        
+    	const { container } = render(getSubHeader(customerId, history))
+        const loyaltyButton = await screen.getByTestId("loyaltyLink") //needs await bc of var assignment
+        userEvent.click(loyaltyButton) // click the link to change route
+        screen.findByText('Loyalty Card And Rewards')             // verify that the loyalty route is loaded
+    })
 })
