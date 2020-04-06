@@ -98,6 +98,8 @@ class FormPage extends Component{
             document.getElementById('city').value = this.context.customerInfo.city;
             document.getElementById('zipCode').value = this.context.customerInfo.zipCode;
             document.getElementById('birthday').value = this.context.customerInfo.birthday;
+            let state = this.context.customerInfo.state;
+            document.getElementById('state').options.namedItem(state).selected=true;
             }
     }
 
@@ -220,57 +222,57 @@ class FormPage extends Component{
                 <div className="form_label">State</div>
                 <div className="form-textbox">
                     <select id="state">
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
-                        <option value="AZ">Arizona</option>
-                        <option value="AR">Arkansas</option>
-                        <option value="CA">California</option>
-                        <option value="CO">Colorado</option>
-                        <option value="CT">Connecticut</option>
-                        <option value="DE">Delaware</option>
-                        <option value="DC">District Of Columbia</option>
-                        <option value="FL">Florida</option>
-                        <option value="GA">Georgia</option>
-                        <option value="HI">Hawaii</option>
-                        <option value="ID">Idaho</option>
-                        <option value="IL">Illinois</option>
-                        <option value="IN">Indiana</option>
-                        <option value="IA">Iowa</option>
-                        <option value="KS">Kansas</option>
-                        <option value="KY">Kentucky</option>
-                        <option value="LA">Louisiana</option>
-                        <option value="ME">Maine</option>
-                        <option value="MD">Maryland</option>
-                        <option value="MA">Massachusetts</option>
-                        <option value="MI">Michigan</option>
-                        <option value="MN">Minnesota</option>
-                        <option value="MS">Mississippi</option>
-                        <option value="MO">Missouri</option>
-                        <option value="MT">Montana</option>
-                        <option value="NE">Nebraska</option>
-                        <option value="NV">Nevada</option>
-                        <option value="NH">New Hampshire</option>
-                        <option value="NJ">New Jersey</option>
-                        <option value="NM">New Mexico</option>
-                        <option value="NY">New York</option>
-                        <option value="NC">North Carolina</option>
-                        <option value="ND">North Dakota</option>
-                        <option value="OH">Ohio</option>
-                        <option value="OK">Oklahoma</option>
-                        <option value="OR">Oregon</option>
-                        <option value="PA">Pennsylvania</option>
-                        <option value="RI">Rhode Island</option>
-                        <option value="SC">South Carolina</option>
-                        <option value="SD">South Dakota</option>
-                        <option value="TN">Tennessee</option>
-                        <option value="TX">Texas</option>
-                        <option value="UT">Utah</option>
-                        <option value="VT">Vermont</option>
-                        <option value="VA">Virginia</option>
-                        <option value="WA">Washington</option>
-                        <option value="WV">West Virginia</option>
-                        <option value="WI">Wisconsin</option>
-                        <option value="WY">Wyoming</option>
+                        <option value="AL" id="AL">Alabama</option>
+                        <option value="AK" id="AK">Alaska</option>
+                        <option value="AZ" id="AZ">Arizona</option>
+                        <option value="AR" id="AR">Arkansas</option>
+                        <option value="CA" id="CA">California</option>
+                        <option value="CO" id="CO">Colorado</option>
+                        <option value="CT" id="CT">Connecticut</option>
+                        <option value="DE" id="DE">Delaware</option>
+                        <option value="DC" id="DC">District Of Columbia</option>
+                        <option value="FL" id="FL">Florida</option>
+                        <option value="GA" id="GA">Georgia</option>
+                        <option value="HI" id="HI">Hawaii</option>
+                        <option value="ID" id="ID">Idaho</option>
+                        <option value="IL" id="IL">Illinois</option>
+                        <option value="IN" id="IN">Indiana</option>
+                        <option value="IA" id="IA">Iowa</option>
+                        <option value="KS" id="KS">Kansas</option>
+                        <option value="KY" id="KY">Kentucky</option>
+                        <option value="LA" id="LA">Louisiana</option>
+                        <option value="ME" id="ME">Maine</option>
+                        <option value="MD" id="MD">Maryland</option>
+                        <option value="MA" id="MA">Massachusetts</option>
+                        <option value="MI" id="MI">Michigan</option>
+                        <option value="MN" id="MN">Minnesota</option>
+                        <option value="MS" id="MS">Mississippi</option>
+                        <option value="MO" id="MO">Missouri</option>
+                        <option value="MT" id="MT">Montana</option>
+                        <option value="NE" id="NE">Nebraska</option>
+                        <option value="NV" id="NV">Nevada</option>
+                        <option value="NH" id="NH">New Hampshire</option>
+                        <option value="NJ" id="NJ">New Jersey</option>
+                        <option value="NM" id="NM">New Mexico</option>
+                        <option value="NY" id="NY">New York</option>
+                        <option value="NC" id="NC">North Carolina</option>
+                        <option value="ND" id="ND">North Dakota</option>
+                        <option value="OH" id="OH">Ohio</option>
+                        <option value="OK" id="OK">Oklahoma</option>
+                        <option value="OR" id="OR">Oregon</option>
+                        <option value="PA" id="PA">Pennsylvania</option>
+                        <option value="RI" id="RI">Rhode Island</option>
+                        <option value="SC" id="SC">South Carolina</option>
+                        <option value="SD" id="SD">South Dakota</option>
+                        <option value="TN" id="TN">Tennessee</option>
+                        <option value="TX" id="TX">Texas</option>
+                        <option value="UT" id="UT">Utah</option>
+                        <option value="VT" id="VT">Vermont</option>
+                        <option value="VA" id="VA">Virginia</option>
+                        <option value="WA" id="WA">Washington</option>
+                        <option value="WV" id="WV">West Virginia</option>
+                        <option value="WI" id="WI">Wisconsin</option>
+                        <option value="WY" id="WY">Wyoming</option>
                     </select>
                 </div>
                 <div className="form_label">Zip Code</div>

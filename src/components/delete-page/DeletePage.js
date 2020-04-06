@@ -72,15 +72,15 @@ class DeletePage extends Component{
         return(
          <Context.Consumer>
          {(context) => (
-            <div className="delete-page">
+            <div className="delete-page" data-testid="deletePage">
                     <Header>
-                        <div className="headerTxt">Delete Customer</div>
+                        <div className="headerTxt" data-testid="deleteHeader">Delete Customer</div>
                         <div>&nbsp;</div>
                     </Header>
-                <div className="delete_label">Are you sure you would like to delete this customer?</div>
-                <div className="delete_label">{context.customerInfo.customerId}</div>
-                <div><button id="delete-button" className="delete-button button-enable" onClick={this.removeCustomer}>YES</button></div>
-                <Link to="/inquiry">
+                <div className="delete_label" data-testid="deleteQuestion">Are you sure you would like to delete this customer?</div>
+                <div className="delete_label" data-testid="deleteCustomerId">{context.customerInfo.customerId}</div>
+                <div data-testid="yesButton"><button id="delete-button" className="delete-button button-enable" onClick={this.removeCustomer}>YES</button></div>
+                <Link to="/inquiry" data-testid="noButton">
                     <button id="delete-button" className="delete-button button-disable">NO</button>
                 </Link>
             </div>

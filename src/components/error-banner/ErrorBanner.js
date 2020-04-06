@@ -26,11 +26,11 @@ export default class ErrorBanner extends Component {
     render() {
         
         return (
-            <div className="customerNotFoundDiv" style={this.props.style}>
-                <div className="customerNotFoundIconDiv">
+            <div className="customerNotFoundDiv" style={this.props.style} data-testid="errorBanner">
+                <div className="customerNotFoundIconDiv" data-testid="errorIcon">
                     <img className='customerNotFoundIcon' src={custNotFoundIcon} alt="Customer Not Found"/>
                 </div>
-                <div className="customerNotFoundText">{this.getErrorMessage(this.props.message)}</div>
+                <div className="customerNotFoundText" data-testid="errorMessage">{this.getErrorMessage(this.props.message)}</div>
             </div>
         );
     }
