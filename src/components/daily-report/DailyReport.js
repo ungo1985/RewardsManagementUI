@@ -23,7 +23,6 @@ export default class DailyReport extends Component {
             reportNotFound: false
         }
 
-        //this.renderErrorMessage = this.renderErrorMessage.bind(this);
     }
 
 
@@ -53,7 +52,6 @@ export default class DailyReport extends Component {
                             serviceDown: false,
                             isLoading: false
                         });
-                        //this.context.setCustomerNotFound(true);
                     }
                     else{
                         this.setState({
@@ -61,15 +59,9 @@ export default class DailyReport extends Component {
                             serviceDown: true,
                             isLoading: false
                         });
-                        //this.context.setServiceDown(true);
                     }
                 }
                 else{
-                    //clearing context
-                   /* console.log("setting context in inquiry");
-                    this.context.setPurchaseInfo(purchaseObject);
-                    this.context.setCustomerNotFound(false);
-                    this.context.setServiceDown(false);*/
 
                     this.setState(
                         {
@@ -131,7 +123,7 @@ export default class DailyReport extends Component {
 
             return (
                 // To Show PurchaseDetails Information
-                <PurchaseDetails purchaseInfo={state.purchaseInfo}></PurchaseDetails>
+                <div data-testid="purchaseDetails"><PurchaseDetails purchaseInfo={state.purchaseInfo}></PurchaseDetails></div>
                 );
         }  
     }
@@ -149,15 +141,15 @@ export default class DailyReport extends Component {
 
    render(){
         return (
-            <div>
+            <div data-testid="dailyReportPage">
                 <Header>
-                    <BackNavigator {...this.props} />
-                    <div className="headerTxt">{DAILY_PURCHASE_REPORT}</div>
+                    <div data-testid="backNav"><BackNavigator {...this.props} /></div>
+                    <div className="headerTxt" data-testid="dailyReportHeader">{DAILY_PURCHASE_REPORT}</div>
                     <div>&nbsp;</div>
                 </Header>
                 <div className="dailyReportPage">
 
-                    <div className="dailyReportBody">
+                    <div className="dailyReportBody" data-testid="dailyReportBody">
                         {this.renderErrorMessage()}
                         {this.renderPurchaseDetails()}
 
