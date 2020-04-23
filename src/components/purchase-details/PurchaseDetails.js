@@ -47,11 +47,11 @@ class PurchaseDetails extends Component {
                 type = purchaseInfo.purchasedItems[index].type, purchasedDate = purchaseInfo.purchasedItems[index].purchasedDate,
                 preOrderedFlag = purchaseInfo.purchasedItems[index].preOrderedFlag;
                 return (<div key={index} id={'overheadLocations' + index} className="overhead-locations">
-                    <span data-testid={'availableItem'+index}>{availableItem}</span>
-                    <span data-testid={'price'+index}>{price}</span>
-                    <span data-testid={'type'+index}>{type}</span>
-                    <span data-testid={'purchasedDate'+index}>{purchasedDate}</span>
-                    <span data-testid={'preOrderedFlag'+index}>{preOrderedFlag}</span>
+                    <span data-testid={'availableItem'+index} className="inlineB1">{availableItem}</span>
+                    <span data-testid={'price'+index} className="inlineB2">{price}</span>
+                    <span data-testid={'type'+index} className="inlineB3">{type}</span>
+                    <span data-testid={'purchasedDate'+index} className="inlineB4">{purchasedDate}</span>
+                    <span data-testid={'preOrderedFlag'+index} className="inlineB5">{preOrderedFlag}</span>
                 </div>);
             });
         

@@ -1,3 +1,30 @@
+.item-title, .price-title, .type-title, .purchased-date-title, .pre-ordered-title{
+	padding: 0px 50px 0px 50px;
+}
+
+.inlineB1{
+	display: inline-block;
+	width: 200px;
+}
+
+.inlineB2{
+	display: inline-block;
+	width: 50px;
+	margin: 0px 50px 0px 0px;
+}
+
+.inlineB3{
+	display: inline-block;
+	width: 100px;
+	margin: 0px 80px 0px 0px;
+}
+
+.inlineB4{
+	display: inline-block;
+	width: 100px;
+	margin: 0px 140px 0px 0px;
+}
+
 .sku-details-div{
   background-color: #FFFFFF;
   height: 300px;
